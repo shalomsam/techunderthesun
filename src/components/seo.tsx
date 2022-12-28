@@ -1,14 +1,13 @@
-/**
- * SEO component that queries for data with
- * Gatsby's useStaticQuery React hook
- *
- * See: https://www.gatsbyjs.com/docs/how-to/querying-data/use-static-query/
- */
-
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
-const Seo = ({ description, title, children }) => {
+type SeoProps = {
+  description?: string,
+  title?: string,
+  children?: JSX.Element
+}
+
+const Seo: React.FC<SeoProps> = ({ description, title, children }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -18,6 +17,8 @@ const Seo = ({ description, title, children }) => {
             description
             social {
               twitter
+              github
+              linkedin
             }
           }
         }

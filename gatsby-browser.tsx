@@ -1,3 +1,5 @@
+import * as React from "react"
+import type { GatsbyBrowser } from "gatsby"
 // custom typefaces
 import "@fontsource/montserrat/variable.css"
 import "@fontsource/merriweather"

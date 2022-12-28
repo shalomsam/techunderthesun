@@ -1,21 +1,32 @@
 import * as React from "react"
 import { Link } from "gatsby"
 
-const Layout = ({ location, title, children }) => {
+declare const __PATH_PREFIX__: string;
+
+type LayoutProps = {
+  title: string,
+  location: {
+    pathname: string,
+  },
+  children: JSX.Element | JSX.Element[],
+}
+
+const Layout: React.FunctionComponent<LayoutProps> = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
+  const siteTitle = title || `Title`
   let header
 
   if (isRootPath) {
     header = (
       <h1 className="main-heading">
-        <Link to="/">{title}</Link>
+        <Link to="/">{siteTitle}</Link>
       </h1>
     )
   } else {
     header = (
       <Link className="header-link-home" to="/">
-        {title}
+        {siteTitle}
       </Link>
     )
   }
@@ -23,9 +34,11 @@ const Layout = ({ location, title, children }) => {
   return (
     <div className="global-wrapper" data-is-root-path={isRootPath}>
       <header className="global-header">{header}</header>
-      <main>{children}</main>
+      <main>
+        {children}
+      </main>
       <footer>
-        © {new Date().getFullYear()}, Built with
+        ©{} {new Date().getFullYear()}, Built with
         {` `}
         <a href="https://www.gatsbyjs.com">Gatsby</a>
       </footer>

@@ -1,11 +1,41 @@
 import * as React from "react"
-import { Link, graphql } from "gatsby"
+import { Link, graphql, PageProps } from "gatsby"
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Bio from "./bio"
+import Layout from "./layout"
+import Seo from "./seo"
 
-const BlogPostTemplate = ({
+type DataProps = {
+  site: {
+    siteMetadata: {
+      title: string,
+    }
+  }
+  markdownRemark: {
+    id: string,
+    excerpt: string,
+    html: string,
+    frontmatter: {
+      title: string,
+      date: string,
+      description: string,
+    }
+  }
+  previous: {
+    frontmatter: {
+      title: string,
+      slug: string,
+    }
+  }
+  next: {
+    frontmatter: {
+      title: string,
+      slug: string,
+    }
+  }
+}
+
+const BlogPostTemplate: React.FC<PageProps<DataProps>> = ({
   data: { previous, next, site, markdownRemark: post },
   location,
 }) => {
@@ -43,14 +73,14 @@ const BlogPostTemplate = ({
         >
           <li>
             {previous && (
-              <Link to={previous.fields.slug} rel="prev">
+              <Link to={previous.frontmatter.slug} rel="prev">
                 ← {previous.frontmatter.title}
               </Link>
             )}
           </li>
           <li>
             {next && (
-              <Link to={next.fields.slug} rel="next">
+              <Link to={next.frontmatter.slug} rel="next">
                 {next.frontmatter.title} →
               </Link>
             )}
@@ -61,7 +91,7 @@ const BlogPostTemplate = ({
   )
 }
 
-export const Head = ({ data: { markdownRemark: post } }) => {
+export const Head: React.FC<PageProps<DataProps>> = ({ data: { markdownRemark: post } }) => {
   return (
     <Seo
       title={post.frontmatter.title}
@@ -89,24 +119,19 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
-        date(formatString: "MMMM DD, YYYY")
-        description
+        date_published(formatString: "MMMM DD, YYYY")
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
-      fields {
-        slug
-      }
       frontmatter {
         title
+        slug
       }
     }
     next: markdownRemark(id: { eq: $nextPostId }) {
-      fields {
-        slug
-      }
       frontmatter {
         title
+        slug
       }
     }
   }

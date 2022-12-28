@@ -3,21 +3,21 @@
  *
  * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/
  */
+import type { GatsbyConfig } from "gatsby"
 
-/**
- * @type {import('gatsby').GatsbyConfig}
- */
-module.exports = {
+const config: GatsbyConfig = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `TechUnderTheSun`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `Shalom Sam`,
+      summary: `, a Software Engineer at heart and working as a Technology Manager based in Vancouver, building and learning new tech everyday.`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+    description: `A personal blog to ink out my thoughts and observations of the tech space. Also a place to document tutorials as I play with new technology tools, frameworks, etc. from time to time.`,
+    siteUrl: `https://techunderthesun.gatsbyjs.io/`,
     social: {
-      twitter: `kylemathews`,
+      twitter: ``,
+      github: `shalomsam`,
+      linkedin: `shalomsam`
     },
   },
   plugins: [
@@ -34,6 +34,13 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `pages`,
+        path: `${__dirname}/content/pages`,
       },
     },
     {
@@ -75,28 +82,25 @@ module.exports = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.nodes.map(node => {
+            serialize: ({ query: { site, allMarkdownRemark } }: any) => {
+              return allMarkdownRemark.nodes.map((node: any) => {
                 return Object.assign({}, node.frontmatter, {
                   description: node.excerpt,
                   date: node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + node.fields.slug,
+                  url: site.siteMetadata.siteUrl + node.frontmatter.slug,
+                  guid: site.siteMetadata.siteUrl + node.frontmatter.slug,
                   custom_elements: [{ "content:encoded": node.html }],
                 })
               })
             },
             query: `{
-              allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
+              allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/blog/)/" }}, sort: {frontmatter: {date: DESC}}) {
                 nodes {
                   excerpt
                   html
-                  fields {
-                    slug
-                  }
                   frontmatter {
                     title
-                    date
+                    date_published
                   }
                 }
               }
@@ -122,4 +126,6 @@ module.exports = {
       },
     },
   ],
-}
+};
+
+export default config;
