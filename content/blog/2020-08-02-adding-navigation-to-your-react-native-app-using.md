@@ -1,7 +1,7 @@
 ---
-title: Integrating Firebase to your React Native App
-slug: adding-navigation-to-your-react-native-app-using
-date_published: 1970-01-01T00:00:00.000Z
+title: "Integrating Firebase to your React Native App"
+slug: "adding-navigation-to-your-react-native-app-using"
+date_published: 2020-08-02T00:00:00.000Z
 date_updated: 2020-08-02T07:47:29.000Z
 draft: true
 ---

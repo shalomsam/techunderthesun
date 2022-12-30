@@ -1,6 +1,6 @@
 ---
 title: "Privacy Policy"
-slug: "/privacy-policy"
+slug: "privacy-policy"
 date_published: 2020-07-01T01:41:58.000Z
 date_updated: 2020-07-01T01:41:58.000Z
 ---

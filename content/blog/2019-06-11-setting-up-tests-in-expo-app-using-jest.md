@@ -1,6 +1,6 @@
 ---
-title: Setting up Jest in an Expo app that's using Firebase 🔥
-slug: setting-up-tests-in-expo-app-using-jest
+title: "Setting up Jest in an Expo app that's using Firebase 🔥"
+slug: "setting-up-tests-in-expo-app-using-jest"
 date_published: 2019-06-11T19:22:06.000Z
 date_updated: 2019-06-11T19:51:19.000Z
 tags: Mobile Apps, Testing, Unit Testing, Jest, expo, expo-cli

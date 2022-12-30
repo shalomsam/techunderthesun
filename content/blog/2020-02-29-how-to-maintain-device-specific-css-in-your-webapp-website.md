@@ -1,6 +1,6 @@
 ---
-title: Handling media-queries with PostCSS Mixins.
-slug: how-to-maintain-device-specific-css-in-your-webapp-website
+title: "Handling media-queries with PostCSS Mixins."
+slug: "how-to-maintain-device-specific-css-in-your-webapp-website"
 date_published: 2020-02-29T09:02:02.000Z
 date_updated: 2020-03-02T21:23:07.000Z
 ---

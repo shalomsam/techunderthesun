@@ -14,8 +14,8 @@ type LayoutProps = {
 const Layout: React.FunctionComponent<LayoutProps> = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
-  const siteTitle = title || `Title`
-  let header
+  const siteTitle = title || `TechUnderTheSun`
+  let header;
 
   if (isRootPath) {
     header = (
@@ -37,10 +37,8 @@ const Layout: React.FunctionComponent<LayoutProps> = ({ location, title, childre
       <main>
         {children}
       </main>
-      <footer>
-        ©{} {new Date().getFullYear()}, Built with
-        {` `}
-        <a href="https://www.gatsbyjs.com">Gatsby</a>
+      <footer className="footer">
+        <span style={{ verticalAlign: 'text-top' }}>&copy;</span> {new Date().getFullYear()} {siteTitle}
       </footer>
     </div>
   )

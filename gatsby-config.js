@@ -3,9 +3,9 @@
  *
  * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/
  */
-import type { GatsbyConfig } from "gatsby"
+// import type { GatsbyConfig } from "gatsby"
 
-const config: GatsbyConfig = {
+const config = {
   siteMetadata: {
     title: `TechUnderTheSun`,
     author: {
@@ -82,19 +82,19 @@ const config: GatsbyConfig = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allMarkdownRemark } }: any) => {
-              return allMarkdownRemark.nodes.map((node: any) => {
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              return allMarkdownRemark.nodes.map((node) => {
                 return Object.assign({}, node.frontmatter, {
                   description: node.excerpt,
                   date: node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + node.frontmatter.slug,
-                  guid: site.siteMetadata.siteUrl + node.frontmatter.slug,
+                  url: `${site.siteMetadata.siteUrl}/${node.frontmatter.slug}`,
+                  guid: Buffer.from(`${site.siteMetadata.siteUrl}/${node.frontmatter.slug}`).toString('base64'),
                   custom_elements: [{ "content:encoded": node.html }],
                 })
               })
             },
             query: `{
-              allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/blog/)/" }}, sort: {frontmatter: {date: DESC}}) {
+              allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/blog/)/" }}, sort: {frontmatter: {date_published: DESC}}) {
                 nodes {
                   excerpt
                   html
@@ -128,4 +128,6 @@ const config: GatsbyConfig = {
   ],
 };
 
-export default config;
+// export default config;
+
+module.exports = config;

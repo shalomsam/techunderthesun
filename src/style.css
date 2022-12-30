@@ -321,6 +321,10 @@ a:focus {
   margin-right: 2rem;
 }
 
+.footer {
+  font-size: 12px;
+}
+
 /* Media queries */
 
 @media (max-width: 42rem) {

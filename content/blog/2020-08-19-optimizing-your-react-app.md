@@ -1,6 +1,6 @@
 ---
-title: Optimizing a monolithic React App - I
-slug: optimizing-your-react-app
+title: "Optimizing a monolithic React App - I"
+slug: "optimizing-your-react-app"
 date_published: 2020-08-20T05:57:51.000Z
 date_updated: 2020-08-20T16:55:57.000Z
 tags: React, Performance, enhancements, Reactjs, Apps

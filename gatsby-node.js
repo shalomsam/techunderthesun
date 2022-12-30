@@ -4,24 +4,25 @@
  * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/
  */
 
-import path from 'path'
-import { createFilePath } from 'gatsby-source-filesystem'
-import type { GatsbyNode } from "gatsby"
+// import path from 'path'
+// import { createFilePath } from 'gatsby-source-filesystem'
+// import type { GatsbyNode } from "gatsby"
+const path = require('path');
+const { createFilePath } = require('gatsby-source-filesystem');
 
-// Define the template for blog post
-const blogPost = path.resolve(`./src/components/blog-post.tsx`)
-// import blogPost from './src/components/blog-post';
-
-export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions, reporter }) => {
+exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 
   // Get all markdown blog posts sorted by date
-  const result: any = await graphql(`
+  const result = await graphql(`
     {
-      allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/blog/)/" }}, sort: { frontmatter: { date: ASC } }, limit: 1000) {
+      allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/blog/)/" }}, sort: { frontmatter: { date_published: DESC } }, limit: 1000) {
         nodes {
           id
           fields {
+            slug
+          }
+          frontmatter {
             slug
           }
         }
@@ -44,24 +45,24 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
   // `context` is available in the template as a prop and as a variable in GraphQL
 
   if (posts.length > 0) {
-    posts.forEach((post: any, index: number) => {
-      const previousPostId = index === 0 ? null : posts[index - 1].id
-      const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
+    posts.forEach((post, index) => {
+      const prevPost = index === 0 ? null : posts[index - 1];
+      const nextPost = index === posts.length - 1 ? null : posts[index + 1];
 
       createPage({
-        path: post.fields.slug,
-        component: blogPost.toString(),
+        path: `/post/${post.frontmatter.slug}`,
+        component: path.resolve(`./src/templates/blog-post.tsx`),
         context: {
           id: post.id,
-          previousPostId,
-          nextPostId,
+          previousPostId: prevPost?.id || null,
+          nextPostId: nextPost?.id || null,
         },
       })
     })
   }
 }
 
-export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, actions, getNode }) => {
+exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
   if (node.internal.type === `MarkdownRemark`) {
@@ -75,7 +76,7 @@ export const onCreateNode: GatsbyNode['onCreateNode'] = ({ node, actions, getNod
   }
 }
 
-export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = ({ actions }) => {
+exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions
 
   // Explicitly define the siteMetadata {} object
@@ -110,7 +111,7 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
     type Frontmatter {
       title: String
       description: String
-      date: Date @dateformat
+      date_published: Date @dateformat
     }
 
     type Fields {

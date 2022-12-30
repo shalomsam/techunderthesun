@@ -1,6 +1,6 @@
 ---
-title: Making a simple Todo app in React Native  using Expo CLI
-slug: making-a-simple-todo-mobile-app-react-native
+title: "Making a simple Todo app in React Native  using Expo CLI"
+slug: "making-a-simple-todo-mobile-app-react-native"
 date_published: 2019-06-16T19:59:29.000Z
 date_updated: 2019-06-16T20:02:05.000Z
 tags: Native Applications, React Native, Tutorial, Todo, Mobile Apps, expo-cli, expo

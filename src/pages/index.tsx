@@ -57,7 +57,7 @@ const BlogIndex: React.FC<PageProps<DataProps>> = ({ data, location }) => {
               >
                 <header>
                   <h2>
-                    <Link to={post.frontmatter.slug} itemProp="url">
+                    <Link to={`/post/${post.frontmatter.slug}`} itemProp="url">
                       <span itemProp="headline">{title}</span>
                     </Link>
                   </h2>
@@ -96,7 +96,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/blog/)/" }},sort: { frontmatter: { date_published: DESC } }) {
+    allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/blog/)/" }}, sort: { frontmatter: { date_published: DESC } }) {
       nodes {
         excerpt
         frontmatter {

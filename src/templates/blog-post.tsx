@@ -1,9 +1,9 @@
 import * as React from "react"
 import { Link, graphql, PageProps } from "gatsby"
 
-import Bio from "./bio"
-import Layout from "./layout"
-import Seo from "./seo"
+import Bio from "../components/bio"
+import Layout from "../components/layout"
+import Seo from "../components/seo"
 
 type DataProps = {
   site: {
@@ -17,17 +17,24 @@ type DataProps = {
     html: string,
     frontmatter: {
       title: string,
-      date: string,
+      date_published: string,
       description: string,
+      slug: string,
     }
   }
-  previous: {
+  prev: {
+    fields:{
+      slug: string,
+    },
     frontmatter: {
       title: string,
       slug: string,
     }
   }
   next: {
+    fields: {
+      slug: string,
+    },
     frontmatter: {
       title: string,
       slug: string,
@@ -35,11 +42,19 @@ type DataProps = {
   }
 }
 
+type Post = {
+  id: string,
+  fields: {
+    slug: string,
+  }
+}
+
 const BlogPostTemplate: React.FC<PageProps<DataProps>> = ({
-  data: { previous, next, site, markdownRemark: post },
+  data,
   location,
 }) => {
-  const siteTitle = site.siteMetadata?.title || `Title`
+  const { prev, next, site, markdownRemark: post } = data;
+  const siteTitle = site.siteMetadata?.title || `Title`;
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -50,7 +65,7 @@ const BlogPostTemplate: React.FC<PageProps<DataProps>> = ({
       >
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
-          <p>{post.frontmatter.date}</p>
+          <p>{post.frontmatter.date_published}</p>
         </header>
         <section
           dangerouslySetInnerHTML={{ __html: post.html }}
@@ -72,15 +87,15 @@ const BlogPostTemplate: React.FC<PageProps<DataProps>> = ({
           }}
         >
           <li>
-            {previous && (
-              <Link to={previous.frontmatter.slug} rel="prev">
-                ← {previous.frontmatter.title}
+            {prev && (
+              <Link to={`/post/${prev.frontmatter.slug}`} rel="prev">
+                ← {prev.frontmatter.title}
               </Link>
             )}
           </li>
           <li>
             {next && (
-              <Link to={next.frontmatter.slug} rel="next">
+              <Link to={`/post/${next.frontmatter.slug}`} rel="next">
                 {next.frontmatter.title} →
               </Link>
             )}
@@ -120,15 +135,22 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date_published(formatString: "MMMM DD, YYYY")
+        slug
       }
     }
-    previous: markdownRemark(id: { eq: $previousPostId }) {
+    prev: markdownRemark(id: { eq: $previousPostId }) {
+      fields {
+        slug
+      }
       frontmatter {
         title
         slug
       }
     }
     next: markdownRemark(id: { eq: $nextPostId }) {
+      fields {
+        slug
+      }
       frontmatter {
         title
         slug

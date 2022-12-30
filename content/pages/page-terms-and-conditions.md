@@ -1,6 +1,6 @@
 ---
 title: "Terms & Conditions"
-slug: "/terms-and-conditions"
+slug: "terms-and-conditions"
 date_published: 2020-07-01T01:38:46.000Z
 date_updated: 2020-07-01T01:38:46.000Z
 tags: legal
