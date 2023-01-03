@@ -20,37 +20,42 @@ If you don't already have an Ubuntu One account head on over to their portal [he
 
 ****Snapd**** is a REST API daemon for managing snap packages. Users can interact with it by using the *snap* client, which is part of the same package. You can package any app for every Linux desktop, server, cloud or device. 
 
-    sudo apt update && sudo apt install snapd
-    
+```bash
+sudo apt update && sudo apt install snapd
+```
 
 At this point, if you are running an Ubuntu 14.04 LTS, you are required to run the Ubuntu v4.4 kernel in Trusty. Please reboot into the correct kernel if you are not currently running it.
 
-    sudo reboot
-    
+```bash
+sudo reboot
+```
 
 ### 3. Install canonical-livepatch
 
 Install canonical livepatch using the following command on your terminal
 
-    sudo snap install canonical-livepatch
-    
+```bash
+sudo snap install canonical-livepatch
+```
 
 ### 4. Enable canonical-livepatch
 
 Now you can head over to Ubuntu's livepatch page and retrieve your own token. Ex: `d3b07384d213edec49eaa6238ad5ff00`. Then you can enable `canonical-livepatch` using the token obtained earlier, on your server/machine, using the following command:
 
-    sudo canonical-livepatch enable d3b07384d113edec49eaa6238ad5ff00
-    
+```bash
+sudo canonical-livepatch enable d3b07384d113edec49eaa6238ad5ff00
+```
 
 ### 5. And You are all set!
 
 That's all you need now you can check your status at anytime using the below command:
 
-    canonical-livepatch status
-    kernel: 4.4.0-70.91~14.04.1-generic
-    fully-patched: true
-    version: "21.1"
-    
+```bash
+canonical-livepatch status
+kernel: 4.4.0-70.91~14.04.1-generic
+fully-patched: true
+version: "21.1"
+```
 
 ## That's All Folks! 🐰🥕
 

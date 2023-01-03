@@ -12,10 +12,11 @@ draft: true
 
 This article is a tutorial that will (hopefully) help you learn how to integrate Firebase into your existing React Native App. We'll cover topics such as user signup & authentication plus how to store and retrieve data from Firebase's Realtime Database. This tutorial will use the todo app created in this [article](https://techunderthesun.in/making-a-simple-todo-mobile-app-react-native/) as the base to start. If you don't want to read that long article, but yet would love to follow this one, simple grab the code from GitHub by running the following commands on your bash command line tool:
 
-    $ git clone https://github.com/shalomsam/RN-Todo-App.git
-    $ cd RN-Todo-App
-    $ git checkout version 1.0
-    
+```bash
+$ git clone https://github.com/shalomsam/RN-Todo-App.git
+$ cd RN-Todo-App
+$ git checkout version 1.0
+```
 
 ## Let's Get Started
 
@@ -27,22 +28,22 @@ I have named my project as **React Native Todo App**, but feel free to name it a
 
 Next we will add the **babel-plugin-inline-dotenv** and **firebase** npm packages. Why do we need babel-plugin-inline-dotenv you ask? Good question, well thing is we are going to have to keep are API keys safe. We don't want to accidentally commit them to source control like git, nor do we want these api keys to be visible to anyone trying to decompile the apk or at the very least we shouldn't be making it easy. I'll show you in a bit how we can achieve this. First we'll run the follow commands on the command line:
 
-    $ npm i firebase --save
-    $ npm i babel-plugin-inline-dotenv --save-dev
-    
+```bash
+$ npm i firebase --save
+$ npm i babel-plugin-inline-dotenv --save-dev
+```
 
 Once the installation is done, we need to add "inline-dotenv" to the babel config in the `babel.config.js`, or which ever is your babel config file. `babel.config.js` for instance should look like this:
 
-    // babel.config.js
-    
-    module.exports = function(api) {
-      api.cache(true);
-      return {
-        presets: ['babel-preset-expo'],
-        plugins: ["inline-dotenv"]
-      };
-    };
-    
+```js file=babel.config.js
+module.exports = function(api) {
+  api.cache(true);
+  return {
+    presets: ['babel-preset-expo'],
+    plugins: ["inline-dotenv"]
+  };
+};
+```
 
 Then we can grab our configuration details for firebase from the [Firebase console](https://console.firebase.google.com), by navigating to the homepage of the project, and clicking on the web `</>` button under the title "Get started by adding Firebase to your app":
 
@@ -56,87 +57,85 @@ Clicking on that button should show a screen that asks you to enter an app name 
 Firebase Configuration Details.
 Notice the `firebaseConfig` in the above image? Grab all those Key/Value pair and copy paste them into a newly created file in root of the project called `.env` like so:
 
-    // .env
-    
-    FIREBASE_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    FIREBASE_AUTH_DOMAIN="something.firebaseapp.com"
-    FIREBASE_DB_URL="https://something.firebaseio.com"
-    FIREBASE_PROJECT_ID="some-project-id-for-app"
-    FIREBASE_STORAGE_BUCKET="something-project.someapp.com"
-    FIREBASE_MESSAGING_SENDER_ID="99999999999"
-    FIREBASE_APP_ID="XXXXXXXXXXXXXXXXXXXXXX"
-    
-    
+```env file=.env
+
+FIREBASE_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+FIREBASE_AUTH_DOMAIN="something.firebaseapp.com"
+FIREBASE_DB_URL="https://something.firebaseio.com"
+FIREBASE_PROJECT_ID="some-project-id-for-app"
+FIREBASE_STORAGE_BUCKET="something-project.someapp.com"
+FIREBASE_MESSAGING_SENDER_ID="99999999999"
+FIREBASE_APP_ID="XXXXXXXXXXXXXXXXXXXXXX"
+```
 
 ### 2. Setting up Firebase in our React Native App.
 
 Then we shall create some database files to handle the setting and retrieving of data from the database. These files will reside in a new directory `database` under the `src` directory. In the `src/database` directory let us add 3 new files, namely, `index.js`, `Database.js` and `Todos.js`. The `index.js` file will just export the contents of the `Todos.js` file: 
 
-    // src/database/index.js
-    
-    export * from './Todos';
-    
+```jsx file=src/database/index.js    
+export * from './Todos';
+```
     
 
 The `Database.js` file will act as the base file for every collection. Currently our app has only one collection, i.e. `Todos` list. The `Database.js` will be imported and extend by the collection classes. Thus this is where we will initialize our firebase app:
 
-    // src/database/Database.js
-    
-    import firebase from 'firebase';
-    
-    export default class Database {
-      constructor() {
-        const firebaseConfig = {
-          apiKey: process.env.FIREBASE_API_KEY,
-          authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-          databaseURL: process.env.FIREBASE_DB_URL,
-          projectId: process.env.FIREBASE_PROJECT_ID,
-          storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-          messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-          appId: process.env.FIREBASE_APP_ID
-        };
-    
-        this.app = firebase.initializeApp(firebaseConfig);
-        this.database = this.app.database();
-      }
-    }
-    
+```jsx src/database/Database.js
+
+import firebase from 'firebase';
+
+export default class Database {
+  constructor() {
+    const firebaseConfig = {
+      apiKey: process.env.FIREBASE_API_KEY,
+      authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+      databaseURL: process.env.FIREBASE_DB_URL,
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+      appId: process.env.FIREBASE_APP_ID
+    };
+
+    this.app = firebase.initializeApp(firebaseConfig);
+    this.database = this.app.database();
+  }
+}
+```
     
 
 Notice that we are fetching our **firebase config** values from `process.env`, this is the magic provided by **babel-plugin-inline-dotenv** that we installed earlier.
 
 Now we can add code for `src/database/Todos.js`. Here we will simply import the previously created `Database.js` file and extend the `Todos` class with our `Database` class. Then we'll add methods to set and retrieve our Todos:
 
-    // src/database/Todos.js
-    
-    import Database from './Database';
-    
-    class Todos extends Database {
-      refKey = 'todos/';
-      
-      setTodos = (todos) => {
-        this.database.ref(this.refKey).set(todos);
-      }
-    
-      getTodos = async () => {
-        const snapshot = await this.database.ref(this.refKey).once('value');
-    
-        if (snapshot.val() && snapshot.val().todos) {
-          return snapshot.val().todos;
-        }
-    
-        return null;
-      }
+```jsx file=src/database/Todos.js
+
+import Database from './Database';
+
+class Todos extends Database {
+  refKey = 'todos/';
+  
+  setTodos = (todos) => {
+    this.database.ref(this.refKey).set(todos);
+  }
+
+  getTodos = async () => {
+    const snapshot = await this.database.ref(this.refKey).once('value');
+
+    if (snapshot.val() && snapshot.val().todos) {
+      return snapshot.val().todos;
     }
-    
-    export const todos = new Todos();
-    
-    
+
+    return null;
+  }
+}
+
+export const todos = new Todos();
+```
 
 Now let's quickly spin it up on our device using expo, simply run the following command on your command line tool:
 
-    $ expo start
-    
+```bash
+$ expo start
+```
 
 This will spin up the Metro bundler server on a port. You can simply scan the bar-code on your devices' Expo client app. This will open the app on your device. You can play around with the app and you'll also be able to see your **Firebase Real-time Database** update in real time :)
 ![](/content/images/2019/05/React_Native_Todo_App_-_Firebase_console.png)Watch the Firebase Magic!
