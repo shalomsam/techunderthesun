@@ -60,20 +60,24 @@ The `"jest"` configuration can be used for React Native Apps as well.
 Now create a `tests` directory in the root of your project, and add a file that we will name `App.spec.js`. Let's add a simple [snapshot test](https://jestjs.io/docs/en/snapshot-testing) to check that our current setup works:
 
 ```jsx file=App.spec.js
-    import 'react-native';
-    import React from 'react';
-    import renderer from 'react-test-renderer';
-    import App from '../App';
-    
-    
-    it('App should render correctly', () => {
-      const tree = renderer.create(<App />).toJSON();
-      expect(tree).toMatchSnapshot();
-    });
+import 'react-native';
+import React from 'react';
+import renderer from 'react-test-renderer';
+import App from '../App';
+
+
+it('App should render correctly', () => {
+  const tree = renderer.create(<App />).toJSON();
+  expect(tree).toMatchSnapshot();
+});
 ```
 
 Now if we run `yarn test` or `npm run test`, even though the test may pass, you might see a bunch of errors like the ones you see in the below images:
-![](/content/images/2019/06/Fullscreen_11_06_19__5_49_PM.png)weird errors even though the test seems to pass!![](/content/images/2019/06/Fullscreen_11_06_19__8_47_PM-2.png)And some more errors! 😱
+![Strange Errors](./Fullscreen_11_06_19__5_49_PM.png)
+Weird errors even though the test seems to pass!
+
+![More Errors](./Fullscreen_11_06_19__8_47_PM-2.png)
+And some more errors! 😱
 Now, these errors could be very misleading to what the real problem is. What you need to do next is Mock Firebase.
 
 ## 4. Mocking Firebase for Testing
@@ -81,20 +85,24 @@ Now, these errors could be very misleading to what the real problem is. What you
 The main purpose of adding `[firebase-mock](https://github.com/soumak77/firebase-mock)` was to provide an easy way to mock the firebase SDK so that your tests don't actually hit the remote firebase database. Now, at the time of writing this article, I could not find proper documentation on how to actually use `firebase-mock`. The implementation suggested by the `firebase-mock` seemed rather incomplete. And thus began my nightmare of finding a firebase mock. I found a lot of snippets and gists out there, but most were incomplete or outdated & unmaintained. Which also made me realize that depending on a library that was meant for mocking made more sense from a maintainability stand point. But alas how do I use it. After a lot of searching around, I finally found how to use `firebase-mock`. To use this, first, we create a new `__mocks__` directory, that will contain all our mocks. *Ideally, I would have loved to have this directory under the directory that we created. But I couldn't find any good solution on how to achieve this at the moment in Jest*. Now we create a file with the filename matching that of the library we are trying to mock. In our case, the file name will be `firebase.js`, as we need to mock the firebase library. Open the newly created `firebase.js` and add the following code in it:
 
 ```jsx file=firebase.js
-    import firebasemock from 'firebase-mock';
-    
-    const mockdatabase = new firebasemock.MockFirebase();
-    const mockauth = new firebasemock.MockFirebase();
-    const mocksdk = new firebasemock.MockFirebaseSdk(path => (
-      path ? mockdatabase.child(path) : mockdatabase
-    ),
-    () => mockauth);
-    
-    export default mocksdk;
+import firebasemock from 'firebase-mock';
+
+const mockdatabase = new firebasemock.MockFirebase();
+const mockauth = new firebasemock.MockFirebase();
+const mocksdk = new firebasemock.MockFirebaseSdk(path => (
+  path ? mockdatabase.child(path) : mockdatabase
+),
+() => mockauth);
+
+export default mocksdk;
 ```
 
 Now if you return to your terminal and run `yarn test` or `npm run test` once you again you'll see 🦄🌈, kidding, but you'll see that the errors have magically gone away and your test succeeds.
-![](/content/images/2019/06/1____Sites_shalomsam-new_projects_simple-todo-native__zsh_.png)Passing test with no random errors!
+
+![Passing Tests](./Screenshot_passing_tests.png)
+
+Passing test with no random errors!
+
 ## 5. What step 5!?
 
 Nope, no more steps other than that you can start writing some tests now! Jest supports Unit Testing, but, if you need to do End-To-End (e2e) testing then I'd suggest using Detox. You can find a good article on setting up Detox in your project for e2e testing [here](https://blog.expo.io/testing-expo-apps-with-detox-and-react-native-testing-library-7fbdbb82ac87).

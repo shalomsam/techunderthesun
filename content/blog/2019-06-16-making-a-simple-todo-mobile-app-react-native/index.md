@@ -101,7 +101,7 @@ So the main logic of the app resides under the newly created `src` directory. We
 
 Let's go ahead and clean-up `App.js` such that it only imports `Main.js`. Hence, your `App.js` should look like this:
 
-```js
+```jsx
 // App.js
 import * as React from 'react';
 import Main from './src/Main';
