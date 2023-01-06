@@ -2,7 +2,7 @@
   "name": "gatsby-starter-blog",
   "private": true,
   "description": "A starter for a blog powered by Gatsby and Markdown",
-  "version": "0.1.0",
+  "version": "0.0.2",
   "author": "Shalom Sam <shalom.k.sam@gmail.com>",
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
@@ -21,6 +21,7 @@
     "gatsby-remark-responsive-iframe": "^6.3.0",
     "gatsby-source-filesystem": "^5.3.1",
     "gatsby-transformer-sharp": "^5.3.1",
+    "mdx-embed": "^1.1.2",
     "prism-react-renderer": "^1.3.5",
     "prismjs": "^1.29.0",
     "react": "^18.1.0",

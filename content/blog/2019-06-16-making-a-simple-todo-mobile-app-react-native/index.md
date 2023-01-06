@@ -563,9 +563,7 @@ This method then needs to be added to all other methods that updates the todos l
 
 And so we finally have a working Todo with persistence. The final code with all the changes discussed above should look like this:
 
-{/* TODO: Need to fix below code injection for Expo Snack */}
-{/* <div data-snack-id="@shalom.s/simple-todo-app---no-filters" data-snack-platform="web" data-snack-preview="false" data-snack-theme="light" style="overflow:hidden;background:#F9F9F9;border:1px solid var(--color-border);border-radius:4px;height:505px;width:100%"></div>
-<script async src="https://snack.expo.dev/embed.js"></script> */}
+<Snack snackId="@shalom.s/simple-todo-app---no-filters" />
 
 ---
 

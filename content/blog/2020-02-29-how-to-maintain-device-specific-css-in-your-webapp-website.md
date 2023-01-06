@@ -63,7 +63,7 @@ npm i -D postcss-mixins
 
 To enable the plugin, we need to load the plugin by including them in the postcss config:
 
-```js
+```js file=postcss.config.js
 postcss([require("postcss-mixins")])
 ```
 
@@ -169,7 +169,7 @@ This type is ideal for CSS hacks or business logic.
 
 Function mixins can be defined in your PostCSS config file:
 
-```jsx
+```jsx file=postcss.config.js
 require("postcss-mixins")({
   mixins: {
     icons: function (mixin, dir) {

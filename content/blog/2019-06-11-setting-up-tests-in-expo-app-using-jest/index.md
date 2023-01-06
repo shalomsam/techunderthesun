@@ -36,7 +36,7 @@ npm i jest jest-expo react-test-renderer firebase-mock --save-dev
 
 The expo app requires a lil setup before you can start running tests. Update your `package.json` file to include the following lines:
 
-```json
+```json file=package.json
 "scripts": {
   // SNIP
   "test": "jest ./tests"

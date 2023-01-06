@@ -78,7 +78,7 @@ export * from "./Todos"
 
 The `Database.js` file will act as the base file for every collection. Currently our app has only one collection, i.e. `Todos` list. The `Database.js` will be imported and extend by the collection classes. Thus this is where we will initialize our firebase app:
 
-```jsx src/database/Database.js
+```jsx file=src/database/Database.js
 import firebase from "firebase"
 
 export default class Database {

@@ -8,6 +8,7 @@ import React from "react"
 import { MDXProvider } from "@mdx-js/react"
 import Highlight, { defaultProps } from "prism-react-renderer"
 import theme from "prism-react-renderer/themes/nightOwl"
+import { Snack } from 'mdx-embed'
 
 const Code: React.FC<any> = props => {
   const className = props.children.props.className || ""
@@ -90,6 +91,7 @@ const Code: React.FC<any> = props => {
 const components = {
   pre: props => <Code {...props} />,
   wrapper: ({ children }) => <>{children}</>,
+  Snack: props => <Snack {...props} />
 }
 
 export const wrapRootElement = ({ element }) => {

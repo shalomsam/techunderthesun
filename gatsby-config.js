@@ -45,6 +45,7 @@ const config = {
         path: `${__dirname}/content/pages`,
       },
     },
+    // `gatsby-plugin-mdx-embed`,
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
