@@ -7,8 +7,8 @@
 // import path from 'path'
 // import { createFilePath } from 'gatsby-source-filesystem'
 // import type { GatsbyNode } from "gatsby"
-const path = require('path');
-const { createFilePath } = require('gatsby-source-filesystem');
+const path = require("path")
+const { createFilePath } = require("gatsby-source-filesystem")
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
@@ -16,7 +16,11 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   // Get all markdown blog posts sorted by date
   const result = await graphql(`
     {
-      allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/blog/)/" }}, sort: { frontmatter: { date_published: DESC } }, limit: 1000) {
+      allMdx(
+        filter: { internal: { contentFilePath: { regex: "/(/blog/)/" } } }
+        sort: { frontmatter: { date_published: DESC } }
+        limit: 1000
+      ) {
         nodes {
           id
           fields {
@@ -24,6 +28,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           }
           frontmatter {
             slug
+          }
+          internal {
+            contentFilePath
           }
         }
       }
@@ -38,7 +45,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return
   }
 
-  const posts = result?.data?.allMarkdownRemark?.nodes
+  const posts = result?.data?.allMdx?.nodes
 
   // Create blog posts pages
   // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
@@ -46,12 +53,13 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   if (posts.length > 0) {
     posts.forEach((post, index) => {
-      const prevPost = index === 0 ? null : posts[index - 1];
-      const nextPost = index === posts.length - 1 ? null : posts[index + 1];
+      const prevPost = index === 0 ? null : posts[index - 1]
+      const nextPost = index === posts.length - 1 ? null : posts[index + 1]
+      const postTemplate = path.resolve(`./src/templates/blog-post.tsx`)
 
       createPage({
         path: `/post/${post.frontmatter.slug}`,
-        component: path.resolve(`./src/templates/blog-post.tsx`),
+        component: `${postTemplate}?__contentFilePath=${post.internal.contentFilePath}`,
         context: {
           id: post.id,
           previousPostId: prevPost?.id || null,
@@ -65,7 +73,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
-  if (node.internal.type === `MarkdownRemark`) {
+  if (node.internal.type === `Mdx`) {
     const value = createFilePath({ node, getNode })
 
     createNodeField({
@@ -103,7 +111,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       linkedin: String
     }
 
-    type MarkdownRemark implements Node {
+    type Mdx implements Node {
       frontmatter: Frontmatter
       fields: Fields
     }
@@ -119,4 +127,3 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
   `)
 }
-

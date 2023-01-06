@@ -8,53 +8,54 @@ import Seo from "../components/seo"
 type DataProps = {
   site: {
     siteMetadata: {
-      title: string,
+      title: string
     }
   }
-  markdownRemark: {
-    id: string,
-    excerpt: string,
-    html: string,
+  mdx: {
+    id: string
+    excerpt: string
+    html: string
     frontmatter: {
-      title: string,
-      date_published: string,
-      description: string,
-      slug: string,
+      title: string
+      date_published: string
+      description: string
+      slug: string
     }
   }
   prev: {
-    fields:{
-      slug: string,
-    },
+    fields: {
+      slug: string
+    }
     frontmatter: {
-      title: string,
-      slug: string,
+      title: string
+      slug: string
     }
   }
   next: {
     fields: {
-      slug: string,
-    },
+      slug: string
+    }
     frontmatter: {
-      title: string,
-      slug: string,
+      title: string
+      slug: string
     }
   }
 }
 
 type Post = {
-  id: string,
+  id: string
   fields: {
-    slug: string,
+    slug: string
   }
 }
 
 const BlogPostTemplate: React.FC<PageProps<DataProps>> = ({
   data,
   location,
+  children,
 }) => {
-  const { prev, next, site, markdownRemark: post } = data;
-  const siteTitle = site.siteMetadata?.title || `Title`;
+  const { prev, next, site, mdx: post } = data
+  const siteTitle = site.siteMetadata?.title || `Title`
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -67,10 +68,7 @@ const BlogPostTemplate: React.FC<PageProps<DataProps>> = ({
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date_published}</p>
         </header>
-        <section
-          dangerouslySetInnerHTML={{ __html: post.html }}
-          itemProp="articleBody"
-        />
+        <section itemProp="articleBody">{children}</section>
         <hr />
         <footer>
           <Bio />
@@ -106,7 +104,9 @@ const BlogPostTemplate: React.FC<PageProps<DataProps>> = ({
   )
 }
 
-export const Head: React.FC<PageProps<DataProps>> = ({ data: { markdownRemark: post } }) => {
+export const Head: React.FC<PageProps<DataProps>> = ({
+  data: { mdx: post },
+}) => {
   return (
     <Seo
       title={post.frontmatter.title}
@@ -128,17 +128,16 @@ export const pageQuery = graphql`
         title
       }
     }
-    markdownRemark(id: { eq: $id }) {
+    mdx(id: { eq: $id }) {
       id
       excerpt(pruneLength: 160)
-      html
       frontmatter {
         title
         date_published(formatString: "MMMM DD, YYYY")
         slug
       }
     }
-    prev: markdownRemark(id: { eq: $previousPostId }) {
+    prev: mdx(id: { eq: $previousPostId }) {
       fields {
         slug
       }
@@ -147,7 +146,7 @@ export const pageQuery = graphql`
         slug
       }
     }
-    next: markdownRemark(id: { eq: $nextPostId }) {
+    next: mdx(id: { eq: $nextPostId }) {
       fields {
         slug
       }

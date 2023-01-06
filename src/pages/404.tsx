@@ -8,13 +8,12 @@ type DataProps = {
   site: {
     siteMetadata: {
       title?: string
-    },
+    }
   }
 }
 
-
 const NotFoundPage: React.FC<PageProps<DataProps>> = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata?.title || 'TechUnderTheSun';
+  const siteTitle = data.site.siteMetadata?.title || "TechUnderTheSun"
 
   return (
     <Layout location={location} title={siteTitle}>

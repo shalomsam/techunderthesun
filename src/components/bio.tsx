@@ -46,23 +46,23 @@ const Bio = () => {
       />
       {author?.name && (
         <p>
-          Written by <strong>{author.name}</strong>{author?.summary || null}
-          <br/>
-          Follow me on 
-          {social?.twitter && 
-            (<a href={`https://twitter.com/${social?.twitter}`}>
-            Twitter
-            </a>)}
+          Written by <strong>{author.name}</strong>
+          {author?.summary || null}
+          <br />
+          Follow me on
+          {social?.twitter && (
+            <a href={`https://twitter.com/${social?.twitter}`}>Twitter</a>
+          )}
           {" | "}
-          {social?.github &&
-            (<a href={`https://github.com/${social?.github}`}>
-              GitHub
-            </a>)}
+          {social?.github && (
+            <a href={`https://github.com/${social?.github}`}>GitHub</a>
+          )}
           {" | "}
-          {social?.linkedin && 
-            (<a href={`https://www.linkedin.com/in/${social?.linkedin}/`}>
+          {social?.linkedin && (
+            <a href={`https://www.linkedin.com/in/${social?.linkedin}/`}>
               LinkedIn
-            </a>)}
+            </a>
+          )}
         </p>
       )}
     </div>

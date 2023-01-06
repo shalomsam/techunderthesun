@@ -8,17 +8,17 @@ import Seo from "../components/seo"
 type DataProps = {
   site: {
     siteMetadata: {
-      title: string;
+      title: string
     }
-  },
-  allMarkdownRemark: {
+  }
+  allMdx: {
     nodes: {
       excerpt: any
       frontmatter: {
-        date: string;
-        title: string;
-        description: string;
-        slug: string;
+        date_published: string
+        title: string
+        description: string
+        slug: string
       }
     }[]
   }
@@ -26,7 +26,7 @@ type DataProps = {
 
 const BlogIndex: React.FC<PageProps<DataProps>> = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
-  const posts = data.allMarkdownRemark.nodes
+  const posts = data.allMdx.nodes
 
   if (posts.length === 0) {
     return (
@@ -61,7 +61,7 @@ const BlogIndex: React.FC<PageProps<DataProps>> = ({ data, location }) => {
                       <span itemProp="headline">{title}</span>
                     </Link>
                   </h2>
-                  <small>{post.frontmatter.date}</small>
+                  <small>{post.frontmatter.date_published}</small>
                 </header>
                 <section>
                   <p
@@ -96,7 +96,10 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/blog/)/" }}, sort: { frontmatter: { date_published: DESC } }) {
+    allMdx(
+      filter: { internal: { contentFilePath: { regex: "/(/blog/)/" } } }
+      sort: { frontmatter: { date_published: DESC } }
+    ) {
       nodes {
         excerpt
         frontmatter {

@@ -36,13 +36,13 @@ $ npm i babel-plugin-inline-dotenv --save-dev
 Once the installation is done, we need to add "inline-dotenv" to the babel config in the `babel.config.js`, or which ever is your babel config file. `babel.config.js` for instance should look like this:
 
 ```js file=babel.config.js
-module.exports = function(api) {
-  api.cache(true);
+module.exports = function (api) {
+  api.cache(true)
   return {
-    presets: ['babel-preset-expo'],
-    plugins: ["inline-dotenv"]
-  };
-};
+    presets: ["babel-preset-expo"],
+    plugins: ["inline-dotenv"],
+  }
+}
 ```
 
 Then we can grab our configuration details for firebase from the [Firebase console](https://console.firebase.google.com), by navigating to the homepage of the project, and clicking on the web `</>` button under the title "Get started by adding Firebase to your app":
@@ -70,18 +70,16 @@ FIREBASE_APP_ID="XXXXXXXXXXXXXXXXXXXXXX"
 
 ### 2. Setting up Firebase in our React Native App.
 
-Then we shall create some database files to handle the setting and retrieving of data from the database. These files will reside in a new directory `database` under the `src` directory. In the `src/database` directory let us add 3 new files, namely, `index.js`, `Database.js` and `Todos.js`. The `index.js` file will just export the contents of the `Todos.js` file: 
+Then we shall create some database files to handle the setting and retrieving of data from the database. These files will reside in a new directory `database` under the `src` directory. In the `src/database` directory let us add 3 new files, namely, `index.js`, `Database.js` and `Todos.js`. The `index.js` file will just export the contents of the `Todos.js` file:
 
-```jsx file=src/database/index.js    
-export * from './Todos';
+```jsx file=src/database/index.js
+export * from "./Todos"
 ```
-    
 
 The `Database.js` file will act as the base file for every collection. Currently our app has only one collection, i.e. `Todos` list. The `Database.js` will be imported and extend by the collection classes. Thus this is where we will initialize our firebase app:
 
 ```jsx src/database/Database.js
-
-import firebase from 'firebase';
+import firebase from "firebase"
 
 export default class Database {
   constructor() {
@@ -92,43 +90,41 @@ export default class Database {
       projectId: process.env.FIREBASE_PROJECT_ID,
       storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
       messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-      appId: process.env.FIREBASE_APP_ID
-    };
+      appId: process.env.FIREBASE_APP_ID,
+    }
 
-    this.app = firebase.initializeApp(firebaseConfig);
-    this.database = this.app.database();
+    this.app = firebase.initializeApp(firebaseConfig)
+    this.database = this.app.database()
   }
 }
 ```
-    
 
 Notice that we are fetching our **firebase config** values from `process.env`, this is the magic provided by **babel-plugin-inline-dotenv** that we installed earlier.
 
 Now we can add code for `src/database/Todos.js`. Here we will simply import the previously created `Database.js` file and extend the `Todos` class with our `Database` class. Then we'll add methods to set and retrieve our Todos:
 
 ```jsx file=src/database/Todos.js
-
-import Database from './Database';
+import Database from "./Database"
 
 class Todos extends Database {
-  refKey = 'todos/';
-  
-  setTodos = (todos) => {
-    this.database.ref(this.refKey).set(todos);
+  refKey = "todos/"
+
+  setTodos = todos => {
+    this.database.ref(this.refKey).set(todos)
   }
 
   getTodos = async () => {
-    const snapshot = await this.database.ref(this.refKey).once('value');
+    const snapshot = await this.database.ref(this.refKey).once("value")
 
     if (snapshot.val() && snapshot.val().todos) {
-      return snapshot.val().todos;
+      return snapshot.val().todos
     }
 
-    return null;
+    return null
   }
 }
 
-export const todos = new Todos();
+export const todos = new Todos()
 ```
 
 Now let's quickly spin it up on our device using expo, simply run the following command on your command line tool:

@@ -22,7 +22,7 @@ Though many other metrics play into performance, these metrics address key compo
 
 **CLS** - Tracks visual stability.
 
-*Also, note that these metrics are vital to obtaining a good Lighthouse score.*[read more](https://web.dev/vitals/).
+_Also, note that these metrics are vital to obtaining a good Lighthouse score._[read more](https://web.dev/vitals/).
 
 #### How to track these metrics
 
@@ -52,7 +52,7 @@ As you can see our internal library (bbyca) was duplicated multiple times.
 
 There were two reasons for this behaviour -
 
-- For one we started using strict versions (not following semantic versioning standards), i.e instead of using `<package-name>: "^x.x.x"` we started removing the "^" from a maintainability standpoint. *(not that I particularly agree with the idea, but that's a discussion for another time)*.
+- For one we started using strict versions (not following semantic versioning standards), i.e instead of using `<package-name>: "^x.x.x"` we started removing the "^" from a maintainability standpoint. _(not that I particularly agree with the idea, but that's a discussion for another time)_.
 - And to make matters worse each internal package used a different version of bbyca.
 
 These two points together made it impossible for npm and/or Webpack to deduplicate these internal packages. Thus bloating our vendor file(s).

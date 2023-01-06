@@ -2,8 +2,8 @@ import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
 type SeoProps = {
-  description?: string,
-  title?: string,
+  description?: string
+  title?: string
   children?: JSX.Element
 }
 

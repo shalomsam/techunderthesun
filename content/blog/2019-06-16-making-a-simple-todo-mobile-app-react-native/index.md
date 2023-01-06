@@ -45,8 +45,7 @@ This should load your app on the expo client. Go ahead and make changes to the `
 
 If you open App.js the initial code should look like this:
 
-```jsx
-// App.js
+```jsx file=App.js
 
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
@@ -101,8 +100,7 @@ So the main logic of the app resides under the newly created `src` directory. We
 
 Let's go ahead and clean-up `App.js` such that it only imports `Main.js`. Hence, your `App.js` should look like this:
 
-```jsx
-// App.js
+```jsx file=App.js
 import * as React from 'react';
 import Main from './src/Main';
 
@@ -115,8 +113,8 @@ export default class App extends React.Component {
 
 And our `src/Main.js` should look like this:
 
-```jsx
-// src/Main.js
+```jsx file=src/Main.js
+
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { Constants } from 'expo';
@@ -156,8 +154,7 @@ const styles = StyleSheet.create({
 
 Let's also add a simple util file called `styles.js` under the `utils` directory:
 
-```js
-// src/utils/styles.js
+```js file=src/utils/styles.js
 
 export const styles = {
   fontColor: '#ffffff',
@@ -172,8 +169,7 @@ This file will hold our app-wide common style properties, like font style, color
 
 Let's create a `Header` Component under the component directory. We will create a simple function based component that will receive the Header title as a prop:
 
-```jsx
-// src/Header.js
+```jsx file=src/Header.js
 
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
@@ -206,8 +202,7 @@ Here we have imported the `src/utils/styles.js`, that we created earlier, and us
 
 Now that we created the `Header` component we need to use it in our `Main.js` file. But, but before we do that let's go ahead delete everything inside the render method, and redo the layout. I'll start by adding `state` in the `constructor()` method and instantiating `todos` as an empty `Array`, `loading` as a `Boolean`, and a single `todo` as an empty `String` to handle the todo input from the user (which we'll add later). Then I'll import `StatusBar` from `react-native` & `LinearGradient` from `exp`. The `StatusBar` component allows us to control the background color of the status bar and font color of the items it holds. In this app, I plan to just have a gradient background color for the complete app, which we can achieve with the `LinearGradient` component. So altogether our `Main.js` code should look like this:
 
-```jsx
-// src/Main.js
+```jsx file=src/Main.js
 
 import * as React from 'react';
 import { StatusBar } from 'react-native';
@@ -243,8 +238,7 @@ export default class Main extends React.Component {
 
 Now that we have a `Header` it's time to add an Input field, where the user can enter/type their Todo. For this, we'll use the `TextInput` component provided by React Native, which we will wrap in a `View` container. Below the `TextInput` within this container, we will also add the `ScrollView` component, provided by React Native, which will contain our list of todos. For now, we'll just leave a default text in there. Now the code changes in `Main.js` should look like this:
 
-```jsx
-// src/Main.js
+```jsx file=src/Main.js
 
 // ... (other imports)
 import { StatusBar, View, TextInput, StyleSheet, ScrollView, Text } from 'react-native';
@@ -339,8 +333,7 @@ Now that we have an Input field to enter desired todo(s), we need to be able to 
 
 Both the components will be built as simple function based components a.k.a "dumb components", as we do not need to maintain state in these components:
 
-```jsx
-// src/components/Todos/Todo.js
+```jsx file=src/components/Todos/Todo.js
 
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
@@ -414,8 +407,7 @@ Here we have created a simple todo component that handles the rendering of a sin
 
 And Now we can add some code in `Todos.js` like so:
 
-```jsx
-// src/components/Todos/Todos.js
+```jsx file=src/components/Todos/Todos.js
 
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
@@ -458,15 +450,13 @@ Here we import the `Todo.js` and utilize that component. `Todos` component simpl
 
 Now we can use our `Todos` component in `Main.js` file. First, we obviously need to import this in our file as follows:
 
-```jsx
-// src/Main.js
+```jsx file=src/Main.js
 import Todos from './components/Todos/Todos';
 ```
 
 And then we shall make some minor changes to the render method:
 
-```jsx
-// src/Main.js
+```jsx file=src/Main.js
 
 // ... previous code ...
 
@@ -508,8 +498,7 @@ render() {
 
 Here the minor change is the addition of a `View` wrapper that wraps the todos list section and I have also added a simple title for this section. Finally, the major change being the addition of the `Todos` component. We have passed the `state.todos` to the component and also the event handler methods `checkBoxToggle` and `onDelete`. These methods are carried down the component chain to be utilized by the Todo component. For this we need to add two new methods, (similar to the `addTodo()` method we wrote earlier) as follows:
 
-```jsx
-// src/Main.js
+```jsx file=src/Main.js
 
 // ...
 
@@ -537,7 +526,7 @@ And thus we have a working todo app. Well pretty much, with an exception that ou
 
 So in order to maintain the todo list, even after the app shuts down and restarts, we need to add some sort of persistence, ie. we need to save the list somewhere. In this tutorial, we will store the data on the device in key/value pair local storage. This can be achieved using the inbuilt `AsyncStorage` component. The `AsyncStorage` has many methods exposed, but we'll be mainly just using the `getItem()` & `setItem()` methods. The `setItem()` method will be used to save the data to a key, we'll use a key `'todos'`. The `getItem()` method is used to retrieve the data we set/saved. Thus in the `constructor()` method of the `Main.js`, we will add logic to retrieve the initial list if present. And then add a `save()` method to save to the keystore after updates. For this, we will create two new methods in `Main.js`. First, we will add a method to load the todos list from the keystore called `loadTodos()`:
 
-```jsx
+```jsx file=src/Main.js
 constructor(props) {
     super(props);
     ...
@@ -556,12 +545,11 @@ loadTodos = async () => {
       console.log("Error getting Todo Items >", e);
     }
 };
-
 ```
 
 We'll then create another method to update the todos stored in the keystore, called `save()`:
 
-```jsx
+```jsx file=src/Main.js
     save = async () => {
         try {
           AsyncStorage.setItem('todos', JSON.stringify(this.state.todos));
@@ -575,8 +563,9 @@ This method then needs to be added to all other methods that updates the todos l
 
 And so we finally have a working Todo with persistence. The final code with all the changes discussed above should look like this:
 
-<div data-snack-id="@shalom.s/simple-todo-app---no-filters" data-snack-platform="web" data-snack-preview="false" data-snack-theme="light" style="overflow:hidden;background:#F9F9F9;border:1px solid var(--color-border);border-radius:4px;height:505px;width:100%"></div>
-<script async src="https://snack.expo.dev/embed.js"></script>
+{/* TODO: Need to fix below code injection for Expo Snack */}
+{/* <div data-snack-id="@shalom.s/simple-todo-app---no-filters" data-snack-platform="web" data-snack-preview="false" data-snack-theme="light" style="overflow:hidden;background:#F9F9F9;border:1px solid var(--color-border);border-radius:4px;height:505px;width:100%"></div>
+<script async src="https://snack.expo.dev/embed.js"></script> */}
 
 ---
 
@@ -590,8 +579,7 @@ Another good to have feature would be to add filters to show only completed todo
 
 To achieve this we will need to create a couple of new components. On press of each of these buttons, we will show a dialog/modal to the user for further actions. First, let's begin by building our `Filter` component that will wrap both the buttons and its dialog boxes. So, initially our `Filter.js` should look like this:
 
-```jsx
-// src/components/Filter/Filter.js
+```jsx file=src/components/Filter/Filter.js
 
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
@@ -707,8 +695,7 @@ Also, in the above code, you'll observe that I have imported something called `p
 
 Next, we will add the `FilterModal` and `DeleteAllModal` components under a newly created directory called `Modals`. Both these modals will utilize an inbuilt `Modal` component available in React Native. The `FilterModal` will show a modal on click of the filter icon. The modal will contain a button for each of the available filter type, which in our case totals to three. The code in `FilterModal.js` will look like this:
 
-```jsx
-// src/components/Modals/FilterModal.js
+```jsx file=src/components/Modals/FilterModal.js
 
 import React from 'react';
 import { View, Text, StyleSheet, Modal, TouchableHighlight } from 'react-native';
@@ -796,8 +783,7 @@ export default FilterModal;
 
 After that, we will also add the `DeleteAllModal` component. This modal simply displays a warning message, making the user aware that, continuing would result in the deletion of all or some items (depending on the current filter type) in the list. Thus the modal contains two action buttons, one to '**continue**' with the intended action and another to '**cancel**'. The code in `DeleteAllModal.js` will look like this:
 
-```jsx
-// src/components/Modals/DeleteAllModal.js
+```jsx file=src/components/Modals/DeleteAllModal.js
 
 import React from 'react';
 import { View, Text, StyleSheet, Modal, TouchableHighlight } from 'react-native';
@@ -881,8 +867,7 @@ export default DeleteAllModal;
 
 I have also updated the `utils/styles.js` file, like so:
 
-```jsx
-// src/utils/styles.js
+```jsx file=src/utils/styles.js
 
 export const fontSize = 16;
 export const iconSize = 22;

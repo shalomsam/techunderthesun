@@ -5,6 +5,8 @@
  */
 // import type { GatsbyConfig } from "gatsby"
 
+const rehypeMetaAsAttributes = require(`./rehype-meta-as-attributes`)
+
 const config = {
   siteMetadata: {
     title: `TechUnderTheSun`,
@@ -17,7 +19,7 @@ const config = {
     social: {
       twitter: ``,
       github: `shalomsam`,
-      linkedin: `shalomsam`
+      linkedin: `shalomsam`,
     },
   },
   plugins: [
@@ -44,9 +46,10 @@ const config = {
       },
     },
     {
-      resolve: `gatsby-transformer-remark`,
+      resolve: `gatsby-plugin-mdx`,
       options: {
-        plugins: [
+        extensions: [`.md`, `.mdx`],
+        gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
             options: {
@@ -59,8 +62,10 @@ const config = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
-          `gatsby-remark-prismjs`,
         ],
+        mdxOptions: {
+          rehypePlugins: [rehypeMetaAsAttributes],
+        },
       },
     },
     `gatsby-transformer-sharp`,
@@ -82,22 +87,23 @@ const config = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.nodes.map((node) => {
+            serialize: ({ query: { site, allMdx } }) => {
+              return allMdx.nodes.map(node => {
                 return Object.assign({}, node.frontmatter, {
                   description: node.excerpt,
                   date: node.frontmatter.date,
                   url: `${site.siteMetadata.siteUrl}/${node.frontmatter.slug}`,
-                  guid: Buffer.from(`${site.siteMetadata.siteUrl}/${node.frontmatter.slug}`).toString('base64'),
+                  guid: Buffer.from(
+                    `${site.siteMetadata.siteUrl}/${node.frontmatter.slug}`
+                  ).toString("base64"),
                   custom_elements: [{ "content:encoded": node.html }],
                 })
               })
             },
             query: `{
-              allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/blog/)/" }}, sort: {frontmatter: {date_published: DESC}}) {
+              allMdx(filter: {internal: { contentFilePath: { regex: "/(/blog/)/" } }}, sort: {frontmatter: {date_published: DESC}}) {
                 nodes {
                   excerpt
-                  html
                   frontmatter {
                     title
                     date_published
@@ -126,8 +132,6 @@ const config = {
       },
     },
   ],
-};
+}
 
-// export default config;
-
-module.exports = config;
+module.exports = config

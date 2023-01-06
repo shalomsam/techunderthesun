@@ -18,7 +18,7 @@ If you don't already have an Ubuntu One account head on over to their portal [he
 
 ### 2. Install Snapd
 
-****Snapd**** is a REST API daemon for managing snap packages. Users can interact with it by using the *snap* client, which is part of the same package. You can package any app for every Linux desktop, server, cloud or device. 
+\***\*Snapd\*\*** is a REST API daemon for managing snap packages. Users can interact with it by using the _snap_ client, which is part of the same package. You can package any app for every Linux desktop, server, cloud or device.
 
 ```bash
 sudo apt update && sudo apt install snapd
@@ -65,4 +65,4 @@ Thanks for reading this article. I hope this article has been helpful to you and
 
 ---
 
-*Also published on [medium](https://medium.com/@shalomsam/security-patches-now-a-breeze-on-your-ubuntu-server-machine-9824f1a30c0d).*
+_Also published on [medium](https://medium.com/@shalomsam/security-patches-now-a-breeze-on-your-ubuntu-server-machine-9824f1a30c0d)._

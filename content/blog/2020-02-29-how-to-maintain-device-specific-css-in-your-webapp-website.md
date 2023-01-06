@@ -27,11 +27,11 @@ Another example of an use case for mixins could be, if we had multiple Icons acr
 
 ```scss
 @define-mixin icon $name {
-    padding-left: 16px;
-    &::after {
-        content: "";
-        background: url(/icons/$(name).png);
-    }
+  padding-left: 16px;
+  &::after {
+    content: "";
+    background: url(/icons/$(name).png);
+  }
 }
 ```
 
@@ -39,11 +39,11 @@ And this mixin could be used as:
 
 ```scss
 .search {
-    @mixin icon search;
+  @mixin icon search;
 }
 
 .hamburger {
-    @mixin icon hamburger;
+  @mixin icon hamburger;
 }
 ```
 
@@ -64,9 +64,8 @@ npm i -D postcss-mixins
 To enable the plugin, we need to load the plugin by including them in the postcss config:
 
 ```js
-postcss([ require('postcss-mixins') ])
+postcss([require("postcss-mixins")])
 ```
-    
 
 ### How does mixins help manage media queries?
 
@@ -76,33 +75,33 @@ Lets try this with examples. Lets create mixins (templates) for device/screen-si
 
 ```scss
 @define-mixin tablet {
-    @media (--tablet-screen-size) {
-        @mixin-content;
-    }
+  @media (--tablet-screen-size) {
+    @mixin-content;
+  }
 }
 
 @define-mixin desktop {
-    @media (--desktop-screen-size) {
-        @mixin-content;
-    }
+  @media (--desktop-screen-size) {
+    @mixin-content;
+  }
 }
 ```
-    
+
 OR
 
-```scss    
+```scss
 @define-mixin small {
-    @media (--small-screen) {
-        @mixin-content;
-    }
+  @media (--small-screen) {
+    @mixin-content;
+  }
 }
 
 @define-mixin medium {
-    @media (--medium-screen) {
-        @mixin-content;
-    }
+  @media (--medium-screen) {
+    @mixin-content;
+  }
 }
-``` 
+```
 
 So now we have mixins that help write css targeting specific device/screen size.
 
@@ -112,47 +111,47 @@ The mixin can now be used as follows:
 
 ```scss
 h2 {
-    font-size: 14px;
-  
-    @mixin tablet {
-        font-size: 16px;
-    }
-  
-    @mixin desktop {
-        font-size: 24px;
-    }
+  font-size: 14px;
+
+  @mixin tablet {
+    font-size: 16px;
+  }
+
+  @mixin desktop {
+    font-size: 24px;
+  }
 }
 ```
 
-OR 
+OR
+
 ```scss
 h2 {
-    font-size: 14px;
-  
-    @mixin small {
-        font-size: 16px;
-    }
+  font-size: 14px;
 
-    @mixin medium {
-        font-size: 24px;
-    }
+  @mixin small {
+    font-size: 16px;
+  }
+
+  @mixin medium {
+    font-size: 24px;
+  }
 }
 
 /* Where traditionaly you would define it as: */
 
 h2 {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 @media (min-width: --small) {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 @media (min-width: --medium) {
-    font-size: 24px;
+  font-size: 24px;
 }
 ```
-
 
 This allows for target specific styling to be address in one place and makes it more readable and clear.
 
@@ -171,30 +170,36 @@ This type is ideal for CSS hacks or business logic.
 Function mixins can be defined in your PostCSS config file:
 
 ```jsx
-require('postcss-mixins')({
-    mixins: {
-        icons: function (mixin, dir) {
-            fs.readdirSync('/images/' + dir).forEach(function (file) {
-                var icon = file.replace(/\.svg$/, '');
-                var rule = postcss.rule({ selector: '.icon.icon-' + icon });
-                rule.append({
-                    prop:  'background',
-                    value: 'url(' + dir + '/' + file + ')'
-                });
-                mixin.replaceWith(rule);
-            });
-        }
-    }
-});
+require("postcss-mixins")({
+  mixins: {
+    icons: function (mixin, dir) {
+      fs.readdirSync("/images/" + dir).forEach(function (file) {
+        var icon = file.replace(/\.svg$/, "")
+        var rule = postcss.rule({ selector: ".icon.icon-" + icon })
+        rule.append({
+          prop: "background",
+          value: "url(" + dir + "/" + file + ")",
+        })
+        mixin.replaceWith(rule)
+      })
+    },
+  },
+})
 ```
 
 Defined function mixin can be used as follows:
+
 ```scss
-    @mixin icons signin;
+@mixin icons signin;
 ```
 
 Which compiles to the following:
+
 ```css
-    .icon.icon-back { background: url(signin/back.svg) }
-    .icon.icon-secret { background: url(signin/secret.svg) }
+.icon.icon-back {
+  background: url(signin/back.svg);
+}
+.icon.icon-secret {
+  background: url(signin/secret.svg);
+}
 ```

@@ -29,7 +29,7 @@ OR
 - If you are using npm, run:
 
 ```bash
-npm i jest jest-expo react-test-renderer firebase-mock --save-dev 
+npm i jest jest-expo react-test-renderer firebase-mock --save-dev
 ```
 
 ## 2. Setup:
@@ -60,16 +60,15 @@ The `"jest"` configuration can be used for React Native Apps as well.
 Now create a `tests` directory in the root of your project, and add a file that we will name `App.spec.js`. Let's add a simple [snapshot test](https://jestjs.io/docs/en/snapshot-testing) to check that our current setup works:
 
 ```jsx file=App.spec.js
-import 'react-native';
-import React from 'react';
-import renderer from 'react-test-renderer';
-import App from '../App';
+import "react-native"
+import React from "react"
+import renderer from "react-test-renderer"
+import App from "../App"
 
-
-it('App should render correctly', () => {
-  const tree = renderer.create(<App />).toJSON();
-  expect(tree).toMatchSnapshot();
-});
+it("App should render correctly", () => {
+  const tree = renderer.create(<App />).toJSON()
+  expect(tree).toMatchSnapshot()
+})
 ```
 
 Now if we run `yarn test` or `npm run test`, even though the test may pass, you might see a bunch of errors like the ones you see in the below images:
@@ -82,19 +81,19 @@ Now, these errors could be very misleading to what the real problem is. What you
 
 ## 4. Mocking Firebase for Testing
 
-The main purpose of adding `[firebase-mock](https://github.com/soumak77/firebase-mock)` was to provide an easy way to mock the firebase SDK so that your tests don't actually hit the remote firebase database. Now, at the time of writing this article, I could not find proper documentation on how to actually use `firebase-mock`. The implementation suggested by the `firebase-mock` seemed rather incomplete. And thus began my nightmare of finding a firebase mock. I found a lot of snippets and gists out there, but most were incomplete or outdated & unmaintained. Which also made me realize that depending on a library that was meant for mocking made more sense from a maintainability stand point. But alas how do I use it. After a lot of searching around, I finally found how to use `firebase-mock`. To use this, first, we create a new `__mocks__` directory, that will contain all our mocks. *Ideally, I would have loved to have this directory under the directory that we created. But I couldn't find any good solution on how to achieve this at the moment in Jest*. Now we create a file with the filename matching that of the library we are trying to mock. In our case, the file name will be `firebase.js`, as we need to mock the firebase library. Open the newly created `firebase.js` and add the following code in it:
+The main purpose of adding `[firebase-mock](https://github.com/soumak77/firebase-mock)` was to provide an easy way to mock the firebase SDK so that your tests don't actually hit the remote firebase database. Now, at the time of writing this article, I could not find proper documentation on how to actually use `firebase-mock`. The implementation suggested by the `firebase-mock` seemed rather incomplete. And thus began my nightmare of finding a firebase mock. I found a lot of snippets and gists out there, but most were incomplete or outdated & unmaintained. Which also made me realize that depending on a library that was meant for mocking made more sense from a maintainability stand point. But alas how do I use it. After a lot of searching around, I finally found how to use `firebase-mock`. To use this, first, we create a new `__mocks__` directory, that will contain all our mocks. _Ideally, I would have loved to have this directory under the directory that we created. But I couldn't find any good solution on how to achieve this at the moment in Jest_. Now we create a file with the filename matching that of the library we are trying to mock. In our case, the file name will be `firebase.js`, as we need to mock the firebase library. Open the newly created `firebase.js` and add the following code in it:
 
 ```jsx file=firebase.js
-import firebasemock from 'firebase-mock';
+import firebasemock from "firebase-mock"
 
-const mockdatabase = new firebasemock.MockFirebase();
-const mockauth = new firebasemock.MockFirebase();
-const mocksdk = new firebasemock.MockFirebaseSdk(path => (
-  path ? mockdatabase.child(path) : mockdatabase
-),
-() => mockauth);
+const mockdatabase = new firebasemock.MockFirebase()
+const mockauth = new firebasemock.MockFirebase()
+const mocksdk = new firebasemock.MockFirebaseSdk(
+  path => (path ? mockdatabase.child(path) : mockdatabase),
+  () => mockauth
+)
 
-export default mocksdk;
+export default mocksdk
 ```
 
 Now if you return to your terminal and run `yarn test` or `npm run test` once you again you'll see 🦄🌈, kidding, but you'll see that the errors have magically gone away and your test succeeds.
@@ -109,6 +108,6 @@ Nope, no more steps other than that you can start writing some tests now! Jest s
 
 ## That's All Folks! 🐰🥕
 
-Thanks for reading this article. I hope this article has been helpful to you and has spared you some trouble in setting up Jest at the very least. Hopefully, you don't have to struggle as I did trying to set up testing for my Expo/React Native project. 
+Thanks for reading this article. I hope this article has been helpful to you and has spared you some trouble in setting up Jest at the very least. Hopefully, you don't have to struggle as I did trying to set up testing for my Expo/React Native project.
 
 > Hi 👋, I’m [Shalom Sam](https://react.shalomsam.com/) a Full Stack Developer. I have been working as a developer for a lil over 9 years now. I’m a code-aholic and love building stuff on the web, and now on native devices thanks to React Native. I hope this article was helpful in some way. If you did like this article and would like to see more like these please share & subscribe. **✌️**
