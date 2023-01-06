@@ -1,6 +1,6 @@
 ---
-title: "Handling media-queries with PostCSS Mixins."
-slug: "how-to-maintain-device-specific-css-in-your-webapp-website"
+title: 'Handling media-queries with PostCSS Mixins.'
+slug: 'how-to-maintain-device-specific-css-in-your-webapp-website'
 date_published: 2020-02-29T09:02:02.000Z
 date_updated: 2020-03-02T21:23:07.000Z
 ---
@@ -29,7 +29,7 @@ Another example of an use case for mixins could be, if we had multiple Icons acr
 @define-mixin icon $name {
   padding-left: 16px;
   &::after {
-    content: "";
+    content: '';
     background: url(/icons/$(name).png);
   }
 }
@@ -64,7 +64,7 @@ npm i -D postcss-mixins
 To enable the plugin, we need to load the plugin by including them in the postcss config:
 
 ```js file=postcss.config.js
-postcss([require("postcss-mixins")])
+postcss([require('postcss-mixins')])
 ```
 
 ### How does mixins help manage media queries?
@@ -170,15 +170,15 @@ This type is ideal for CSS hacks or business logic.
 Function mixins can be defined in your PostCSS config file:
 
 ```jsx file=postcss.config.js
-require("postcss-mixins")({
+require('postcss-mixins')({
   mixins: {
     icons: function (mixin, dir) {
-      fs.readdirSync("/images/" + dir).forEach(function (file) {
-        var icon = file.replace(/\.svg$/, "")
-        var rule = postcss.rule({ selector: ".icon.icon-" + icon })
+      fs.readdirSync('/images/' + dir).forEach(function (file) {
+        var icon = file.replace(/\.svg$/, '')
+        var rule = postcss.rule({ selector: '.icon.icon-' + icon })
         rule.append({
-          prop: "background",
-          value: "url(" + dir + "/" + file + ")",
+          prop: 'background',
+          value: 'url(' + dir + '/' + file + ')',
         })
         mixin.replaceWith(rule)
       })

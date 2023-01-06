@@ -1,6 +1,6 @@
 ---
-title: "Making a simple Todo app in React Native  using Expo CLI"
-slug: "making-a-simple-todo-mobile-app-react-native"
+title: 'Making a simple Todo app in React Native  using Expo CLI'
+slug: 'making-a-simple-todo-mobile-app-react-native'
 date_published: 2019-06-16T19:59:29.000Z
 date_updated: 2019-06-16T20:02:05.000Z
 tags: Native Applications, React Native, Tutorial, Todo, Mobile Apps, expo-cli, expo
@@ -10,7 +10,7 @@ excerpt: This tutorial is for both beginners and professionals alike. This tutor
 What is **React Native** you ask? React Native is Facebook's answer to writing code in Javascript using the familiar React fundamentals and coding style to build native iOS and Android apps. React Native exposes the native platform's features to the developer through a large number of inbuilt components and APIs.
 
 > TLDR;
-> 
+>
 > You can find the working app on [Expo.io](https://expo.io/@shalom.s/simple-todo-native) & the complete code on [GitHub](https://github.com/shalomsam/RN-Todo-App).
 
 ### Audience
@@ -27,7 +27,7 @@ First, ensure you have [Node v10+](https://nodejs.org/en/download/). Then instal
 
 ```bash
 npm install -g expo-cli
-```    
+```
 
 Once Expo CLI is installed we can create a new React Native project by running :
 
@@ -37,7 +37,7 @@ expo init react-native-todo
 
 Then simply `cd react-native-todo` and run `npm start` to start the development server.
 
-To run the app you should install the Expo client app from the respective [iOS  App Store](https://itunes.apple.com/app/apple-store/id982107779) or [Android App Store](https://play.google.com/store/apps/details?id=host.exp.exponent&amp;referrer=www) on your device. Once installed, on Android, use the Expo app to scan the QR code from your terminal to open your project. And on iOS, follow on-screen instructions to get a link.
+To run the app you should install the Expo client app from the respective [iOS  App Store](https://itunes.apple.com/app/apple-store/id982107779) or [Android App Store](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www) on your device. Once installed, on Android, use the Expo app to scan the QR code from your terminal to open your project. And on iOS, follow on-screen instructions to get a link.
 
 This should load your app on the expo client. Go ahead and make changes to the `App.js` file in your project and see the changes reflect on the Expo Client App.
 
@@ -46,29 +46,29 @@ This should load your app on the expo client. Go ahead and make changes to the `
 If you open App.js the initial code should look like this:
 
 ```jsx file=App.js
-
-import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { Constants } from 'expo';
+import * as React from 'react'
+import { Text, View, StyleSheet } from 'react-native'
+import { Constants } from 'expo'
 
 // You can import from local files
-import AssetExample from './components/AssetExample';
+import AssetExample from './components/AssetExample'
 
 // or any pure javascript modules available in npm
-import { Card } from 'react-native-paper';
+import { Card } from 'react-native-paper'
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.paragraph}>
-          Change the code in the editor and watch it change on your phone! Save to get a shareable URL.
+          Change the code in the editor and watch it change on your phone! Save
+          to get a shareable URL.
         </Text>
         <Card>
           <AssetExample />
         </Card>
       </View>
-    );
+    )
   }
 }
 
@@ -86,10 +86,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-});
+})
 ```
 
-**Note that the initial code in App.js might look different depending on whether you used the React Native CLI or Expo CLI or the Expo Web editor called Snack.*
+\*_Note that the initial code in App.js might look different depending on whether you used the React Native CLI or Expo CLI or the Expo Web editor called Snack._
 
 **1. Directory structure**
 
@@ -101,12 +101,12 @@ So the main logic of the app resides under the newly created `src` directory. We
 Let's go ahead and clean-up `App.js` such that it only imports `Main.js`. Hence, your `App.js` should look like this:
 
 ```jsx file=App.js
-import * as React from 'react';
-import Main from './src/Main';
+import * as React from 'react'
+import Main from './src/Main'
 
 export default class App extends React.Component {
   render() {
-    return <Main />;
+    return <Main />
   }
 }
 ```
@@ -114,24 +114,23 @@ export default class App extends React.Component {
 And our `src/Main.js` should look like this:
 
 ```jsx file=src/Main.js
-
-import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { Constants } from 'expo';
+import * as React from 'react'
+import { Text, View, StyleSheet } from 'react-native'
+import { Constants } from 'expo'
 
 // or any pure javascript modules available in npm
-import { Card } from 'react-native-paper';
+import { Card } from 'react-native-paper'
 
 export default class App extends React.Component {
-
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.paragraph}>
-          Change code in the editor and watch it change on your phone! Save to get a shareable url.
+          Change code in the editor and watch it change on your phone! Save to
+          get a shareable url.
         </Text>
       </View>
-    );
+    )
   }
 }
 
@@ -149,17 +148,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-});
-```    
+})
+```
 
 Let's also add a simple util file called `styles.js` under the `utils` directory:
 
 ```js file=src/utils/styles.js
-
 export const styles = {
   fontColor: '#ffffff',
   fontSize: 16,
-  appBackgroundColors: ['#4776E6', '#8E54E9']
+  appBackgroundColors: ['#4776E6', '#8E54E9'],
 }
 ```
 
@@ -170,9 +168,8 @@ This file will hold our app-wide common style properties, like font style, color
 Let's create a `Header` Component under the component directory. We will create a simple function based component that will receive the Header title as a prop:
 
 ```jsx file=src/Header.js
-
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 import { styles as GlobalStyles } from '../utils/styles'
 
 export const Header = (props) => {
@@ -180,7 +177,7 @@ export const Header = (props) => {
     <View style={styles.header}>
       <Text style={styles.headerText}>{props.title}</Text>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -188,46 +185,48 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 30,
     textAlign: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   headerText: {
     fontSize: GlobalStyles.fontSize,
     fontColor: GlobalStyles.fontColor,
-    fontWeight: '800'
-  }
-});
-``` 
+    fontWeight: '800',
+  },
+})
+```
 
 Here we have imported the `src/utils/styles.js`, that we created earlier, and used the styles defined within it. You'll observe that I have to import it as `GlobalStyles`, this is to avoid name conflict with the already defined `styles` variable.
 
 Now that we created the `Header` component we need to use it in our `Main.js` file. But, but before we do that let's go ahead delete everything inside the render method, and redo the layout. I'll start by adding `state` in the `constructor()` method and instantiating `todos` as an empty `Array`, `loading` as a `Boolean`, and a single `todo` as an empty `String` to handle the todo input from the user (which we'll add later). Then I'll import `StatusBar` from `react-native` & `LinearGradient` from `exp`. The `StatusBar` component allows us to control the background color of the status bar and font color of the items it holds. In this app, I plan to just have a gradient background color for the complete app, which we can achieve with the `LinearGradient` component. So altogether our `Main.js` code should look like this:
 
 ```jsx file=src/Main.js
-
-import * as React from 'react';
-import { StatusBar } from 'react-native';
-import { LinearGradient } from 'expo';
-import { styles as GlobalStyles } from './utils/styles';
-import { Header } from './components/Header';
+import * as React from 'react'
+import { StatusBar } from 'react-native'
+import { LinearGradient } from 'expo'
+import { styles as GlobalStyles } from './utils/styles'
+import { Header } from './components/Header'
 
 export default class Main extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       todo: '',
       loading: true,
       todos: [],
-    };
+    }
   }
 
   render() {
     return (
-      <LinearGradient style={{flex: 1}} colors={GlobalStyles.appBackgroundColors}>
-        <StatusBar barStyle='light-content' />
-        <Header title='Todo App' />
+      <LinearGradient
+        style={{ flex: 1 }}
+        colors={GlobalStyles.appBackgroundColors}
+      >
+        <StatusBar barStyle="light-content" />
+        <Header title="Todo App" />
       </LinearGradient>
-    );
+    )
   }
 }
 ```
@@ -239,28 +238,34 @@ export default class Main extends React.Component {
 Now that we have a `Header` it's time to add an Input field, where the user can enter/type their Todo. For this, we'll use the `TextInput` component provided by React Native, which we will wrap in a `View` container. Below the `TextInput` within this container, we will also add the `ScrollView` component, provided by React Native, which will contain our list of todos. For now, we'll just leave a default text in there. Now the code changes in `Main.js` should look like this:
 
 ```jsx file=src/Main.js
-
 // ... (other imports)
-import { StatusBar, View, TextInput, StyleSheet, ScrollView, Text } from 'react-native';
+import {
+  StatusBar,
+  View,
+  TextInput,
+  StyleSheet,
+  ScrollView,
+  Text,
+} from 'react-native'
 // ...
 
 export default class Main extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       todo: '',
       loading: true,
       todos: [],
-    };
+    }
   }
 
   addTodo = () => {
     if (this.state.todo.length === 0) {
-      this.setState({inputError: true});
-      return;
+      this.setState({ inputError: true })
+      return
     }
-    const todos = this.state.todos;
+    const todos = this.state.todos
     const todo = {
       title: this.state.todo,
       completed: false,
@@ -269,23 +274,26 @@ export default class Main extends React.Component {
       dueDate: null,
       remindMe: false,
       completedOn: null,
-    };
-    todos.push(todo);
-    this.setState({ todos, todo: '' });
+    }
+    todos.push(todo)
+    this.setState({ todos, todo: '' })
   }
 
   render() {
     return (
-      <LinearGradient style={{flex: 1}} colors={GlobalStyles.appBackgroundColors}>
-        <StatusBar barStyle='light-content' />
-        <Header title='Todo App' />
+      <LinearGradient
+        style={{ flex: 1 }}
+        colors={GlobalStyles.appBackgroundColors}
+      >
+        <StatusBar barStyle="light-content" />
+        <Header title="Todo App" />
         <View style={styles.container}>
-          <TextInput 
-            style={styles.textInput} 
-            autoCapitalize='sentences'
-            placeholder='What needs to be done?'
+          <TextInput
+            style={styles.textInput}
+            autoCapitalize="sentences"
+            placeholder="What needs to be done?"
             placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
-            onChangeText={todo => this.setState({ todo }) }
+            onChangeText={(todo) => this.setState({ todo })}
             blurOnSubmit={false}
             onSubmitEditing={this.addTodo}
             value={this.state.todo}
@@ -295,26 +303,25 @@ export default class Main extends React.Component {
           </ScrollView>
         </View>
       </LinearGradient>
-    );
+    )
   }
-  
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10
+    padding: 10,
   },
   textInput: {
     color: GlobalStyles.fontColor,
     fontSize: 28,
-    fontStyle: 'italic'
+    fontStyle: 'italic',
   },
   noTodo: {
     fontSize: GlobalStyles.fontSize,
     color: GlobalStyles.fontColor,
-    fontWeight: 'bold'
-  }
-});
+    fontWeight: 'bold',
+  },
+})
 ```
 
 You can see that I have passed some props to the `TextInput` component. You can read more about the full list of props available on this component [here](https://facebook.github.io/react-native/docs/textinput.html). I'll try and explain the purpose of the ones used here:
@@ -329,21 +336,21 @@ You can see that I have passed some props to the `TextInput` component. You can 
 
 **4. Creating the Todo(s) Component**
 
-Now that we have an Input field to enter desired todo(s), we need to be able to display the added todos. To handle the rendering of the Todos we will create a new component under the `src/components/` directory. We will start by creating a new directory under this directory and name it as `Todos`. In the `src/components/Todos` directory, we will add to new files, ie. `Todo.js` & `Todos.js`. As the name suggests the `Todo.js` file will handle single Todo rendering and the `Todos.js` will handle the rendering of the entire list. 
+Now that we have an Input field to enter desired todo(s), we need to be able to display the added todos. To handle the rendering of the Todos we will create a new component under the `src/components/` directory. We will start by creating a new directory under this directory and name it as `Todos`. In the `src/components/Todos` directory, we will add to new files, ie. `Todo.js` & `Todos.js`. As the name suggests the `Todo.js` file will handle single Todo rendering and the `Todos.js` will handle the rendering of the entire list.
 
 Both the components will be built as simple function based components a.k.a "dumb components", as we do not need to maintain state in these components:
 
 ```jsx file=src/components/Todos/Todo.js
-
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons'
 
 const Todo = (props) => {
-
-  const todoCheckIcon = props.completed ? 'check-square-o' : 'square-o';
-  const todoCheckIconColor = props.completed ? 'green' : '#333';
-  const titleStyle = props.completed ? [styles.todoTitle, styles.titleComplete] : [styles.todoTitle];
+  const todoCheckIcon = props.completed ? 'check-square-o' : 'square-o'
+  const todoCheckIconColor = props.completed ? 'green' : '#333'
+  const titleStyle = props.completed
+    ? [styles.todoTitle, styles.titleComplete]
+    : [styles.todoTitle]
 
   return (
     <View style={styles.todoContainer}>
@@ -351,20 +358,20 @@ const Todo = (props) => {
         name={todoCheckIcon}
         size={styles.checkBoxIcon.fontSize}
         color={todoCheckIconColor}
-        onPress={e => props.checkBoxToggle(props.index)}
+        onPress={(e) => props.checkBoxToggle(props.index)}
       />
       <Text style={titleStyle}>{props.title}</Text>
-      {props.completed && 
-        <MaterialIcons 
+      {props.completed && (
+        <MaterialIcons
           style={styles.deleteIcon}
-          name={'delete-forever'} 
+          name={'delete-forever'}
           size={styles.checkBoxIcon.fontSize}
-          color='red'
-          onPress={e => props.onDelete(props.index)}
+          color="red"
+          onPress={(e) => props.onDelete(props.index)}
         />
-      }
+      )}
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -379,79 +386,77 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     shadowOpacity: 0.6,
     elevation: 5,
-    position: 'relative'
+    position: 'relative',
   },
   checkBoxIcon: {
-    fontSize: 22
+    fontSize: 22,
   },
   todoTitle: {
     fontSize: 18,
     paddingLeft: 15,
-    width: '80%'
+    width: '80%',
   },
   titleComplete: {
     textDecorationLine: 'line-through',
-    textDecorationStyle: 'solid'
+    textDecorationStyle: 'solid',
   },
   deleteIcon: {
     position: 'absolute',
     right: 10,
-    top: 10
-  }
-});
+    top: 10,
+  },
+})
 
-export default Todo;
-```    
+export default Todo
+```
 
 Here we have created a simple todo component that handles the rendering of a single todo. The styling works out to be a card based display. You'll also observe that `Expo` exposes some commonly used icons from various Icon libraries. Here we make use of a `FontAwesome` icon as well as a `MaterialIcon` icon. You can find the list of available icons [here](https://expo.github.io/vector-icons/). The main thing to observe is that the component expects 5 different props, that is, a `title` prop that holds the todo title, an `index` prop that holds the todo index in the list, a `completed` prop that holds a boolean value to determine whether the todo is completed or not, and then the `checkBoxToggle` and `onDelete` props that are event handlers, to handle the press of the checkbox and deletion for the todo, respectively.
 
 And Now we can add some code in `Todos.js` like so:
 
 ```jsx file=src/components/Todos/Todos.js
-
-import React from 'react';
-import { Text, StyleSheet } from 'react-native';
-import Todo from './Todo';
-import { styles as GlobalStyles } from '../../utils/styles';
+import React from 'react'
+import { Text, StyleSheet } from 'react-native'
+import Todo from './Todo'
+import { styles as GlobalStyles } from '../../utils/styles'
 
 const Todos = (props) => {
-  let todos = <Text style={styles.noTodo}>No TODOs</Text>;
+  let todos = <Text style={styles.noTodo}>No TODOs</Text>
   if (props.todos.length) {
     todos = props.todos.map((item, i) => {
       return (
         <Todo
-          key={i} 
-          index={i} 
+          key={i}
+          index={i}
           title={item.title}
           completed={item.completed}
           checkBoxToggle={props.checkBoxToggle}
           onDelete={props.onDelete}
         />
-      );
-    });
+      )
+    })
   }
-  
-  return todos;
+
+  return todos
 }
 
 const styles = StyleSheet.create({
   noTodo: {
     fontSize: GlobalStyles.fontSize,
     color: GlobalStyles.fontColor,
-    fontWeight: 'bold'
-  }
-});
+    fontWeight: 'bold',
+  },
+})
 
-export default Todos;
+export default Todos
 ```
-    
 
 Here we import the `Todo.js` and utilize that component. `Todos` component simply expects a `todos` prop which contains the complete list. The component then loops through the todos list and build an array of `Todo` items, thus building our rendered list.
 
 Now we can use our `Todos` component in `Main.js` file. First, we obviously need to import this in our file as follows:
 
 ```jsx file=src/Main.js
-import Todos from './components/Todos/Todos';
+import Todos from './components/Todos/Todos'
 ```
 
 And then we shall make some minor changes to the render method:
@@ -466,8 +471,8 @@ render() {
         <StatusBar barStyle='light-content' />
         <Header title='Todo App' />
         <View style={styles.container}>
-          <TextInput 
-            style={styles.textInput} 
+          <TextInput
+            style={styles.textInput}
             autoCapitalize='sentences'
             placeholder='What needs to be done?'
             placeholderTextColor={'rgba(255, 255, 255, 0.7)'}
@@ -481,7 +486,7 @@ render() {
               <Text style={styles.listHeader}>Your Todos</Text>
             </View>
             <ScrollView>
-              <Todos 
+              <Todos
                 todos={this.state.todos}
                 checkBoxToggle={this.checkBoxToggle}
                 onDelete={this.onDeleteAction}
@@ -492,30 +497,29 @@ render() {
       </LinearGradient>
     );
   }
-  
+
   // ... rest of the previous code ...
-```    
+```
 
 Here the minor change is the addition of a `View` wrapper that wraps the todos list section and I have also added a simple title for this section. Finally, the major change being the addition of the `Todos` component. We have passed the `state.todos` to the component and also the event handler methods `checkBoxToggle` and `onDelete`. These methods are carried down the component chain to be utilized by the Todo component. For this we need to add two new methods, (similar to the `addTodo()` method we wrote earlier) as follows:
 
 ```jsx file=src/Main.js
-
 // ...
 
-  checkBoxToggle = (i) => {
-    const todos = this.state.todos;
-    const todo = todos[i];
-    todo.completed = !todo.completed;
-    todo.completedOn = todo.completed ? Date.now() : null;
-    todos[i] = todo;
-    this.setState({todos});
-  }
+checkBoxToggle = (i) => {
+  const todos = this.state.todos
+  const todo = todos[i]
+  todo.completed = !todo.completed
+  todo.completedOn = todo.completed ? Date.now() : null
+  todos[i] = todo
+  this.setState({ todos })
+}
 
-  onDeleteAction = (i) => {
-    const todos = this.state.todos;
-    todos.splice(i, 1);
-    this.setState({ todos });
-  }
+onDeleteAction = (i) => {
+  const todos = this.state.todos
+  todos.splice(i, 1)
+  this.setState({ todos })
+}
 
 // ...
 ```
@@ -550,14 +554,14 @@ loadTodos = async () => {
 We'll then create another method to update the todos stored in the keystore, called `save()`:
 
 ```jsx file=src/Main.js
-    save = async () => {
-        try {
-          AsyncStorage.setItem('todos', JSON.stringify(this.state.todos));
-        } catch (e) {
-          console.log('Error while storing Todo Items >', e);
-        }
-    };
-```   
+save = async () => {
+  try {
+    AsyncStorage.setItem('todos', JSON.stringify(this.state.todos))
+  } catch (e) {
+    console.log('Error while storing Todo Items >', e)
+  }
+}
+```
 
 This method then needs to be added to all other methods that updates the todos list in state with a `setState()`.
 
@@ -567,7 +571,7 @@ And so we finally have a working Todo with persistence. The final code with all 
 
 ---
 
-> ***At this point, we are pretty much done with a simple Todo app as discussed and you can choose to skip the next point. But if you'd like to add some niceties to the app continue reading! Buts it's okay if you choose to skip point 6.***
+> **_At this point, we are pretty much done with a simple Todo app as discussed and you can choose to skip the next point. But if you'd like to add some niceties to the app continue reading! Buts it's okay if you choose to skip point 6._**
 
 **6. Adding Filters to the app**
 
@@ -578,39 +582,37 @@ Another good to have feature would be to add filters to show only completed todo
 To achieve this we will need to create a couple of new components. On press of each of these buttons, we will show a dialog/modal to the user for further actions. First, let's begin by building our `Filter` component that will wrap both the buttons and its dialog boxes. So, initially our `Filter.js` should look like this:
 
 ```jsx file=src/components/Filter/Filter.js
-
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
-import { styles as GlobalStyles } from '../../utils/styles';
-import PropTypes from 'prop-types';
-import FilterModal from '../Modals/FilterModal';
-import DeleteAllModal from '../Modals/DeleteAllModal';
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import { styles as GlobalStyles } from '../../utils/styles'
+import PropTypes from 'prop-types'
+import FilterModal from '../Modals/FilterModal'
+import DeleteAllModal from '../Modals/DeleteAllModal'
 
 export default class Filter extends React.Component {
-
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       showFilterDialog: false,
-      showDeleteAllDialog: false
+      showDeleteAllDialog: false,
     }
   }
 
   selectFilter = (filter) => {
-    this.setState({ showFilterDialog: false });
-    this.props.selectFilter(filter);
+    this.setState({ showFilterDialog: false })
+    this.props.selectFilter(filter)
   }
 
   continue = () => {
-    this.setState({ showDeleteAllDialog: false });
-    this.props.deleteContinue();
+    this.setState({ showDeleteAllDialog: false })
+    this.props.deleteContinue()
   }
 
   cancel = () => {
-    this.setState({ showDeleteAllDialog: false });
-    this.props.deleteCancel();
+    this.setState({ showDeleteAllDialog: false })
+    this.props.deleteCancel()
   }
 
   render() {
@@ -620,8 +622,8 @@ export default class Filter extends React.Component {
           <Text style={styles.filterTitle}>{this.props.filterTitle}</Text>
         </View>
         <View style={styles.filterBtnWrp}>
-          <MaterialCommunityIcons 
-            name='filter'
+          <MaterialCommunityIcons
+            name="filter"
             size={GlobalStyles.iconSize}
             color={'rgba(255,255,255,0.7)'}
             onPress={() => this.setState({ showFilterDialog: true })}
@@ -657,19 +659,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   filterTitleWrp: {
-    width: '80%'
+    width: '80%',
   },
   filterTitle: {
     fontSize: GlobalStyles.fontSize,
     color: 'rgba(255, 255, 255, 0.7)',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   filterBtnWrp: {
     width: '20%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-  }
-});
+  },
+})
 
 Filter.propTypes = {
   filterTitle: PropTypes.string.isRequired,
@@ -677,7 +679,7 @@ Filter.propTypes = {
   filterTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
   deleteContinue: PropTypes.func.isRequired,
   deleteCancel: PropTypes.func.isRequired,
-  selectFilter: PropTypes.func.isRequired
+  selectFilter: PropTypes.func.isRequired,
 }
 ```
 
@@ -694,18 +696,19 @@ Also, in the above code, you'll observe that I have imported something called `p
 Next, we will add the `FilterModal` and `DeleteAllModal` components under a newly created directory called `Modals`. Both these modals will utilize an inbuilt `Modal` component available in React Native. The `FilterModal` will show a modal on click of the filter icon. The modal will contain a button for each of the available filter type, which in our case totals to three. The code in `FilterModal.js` will look like this:
 
 ```jsx file=src/components/Modals/FilterModal.js
-
-import React from 'react';
-import { View, Text, StyleSheet, Modal, TouchableHighlight } from 'react-native';
-import { styles as GlobalStyles } from '../../utils/styles';
-import PropTypes from 'prop-types';
+import React from 'react'
+import { View, Text, StyleSheet, Modal, TouchableHighlight } from 'react-native'
+import { styles as GlobalStyles } from '../../utils/styles'
+import PropTypes from 'prop-types'
 
 const FilterModal = (props) => {
-
   const filterBtns = props.filterTypes.map((filter, i) => {
-
-    const btnStyle = props.selected === filter ? styles.filterBtnActive : styles.filterBtn;
-    const btnTxtStyle = props.selected === filter ? styles.filterBtnActiveTxt : styles.filterBtnTxt;
+    const btnStyle =
+      props.selected === filter ? styles.filterBtnActive : styles.filterBtn
+    const btnTxtStyle =
+      props.selected === filter
+        ? styles.filterBtnActiveTxt
+        : styles.filterBtnTxt
 
     return (
       <TouchableHighlight
@@ -716,15 +719,15 @@ const FilterModal = (props) => {
         <Text style={btnTxtStyle}>{filter}</Text>
       </TouchableHighlight>
     )
-  });
+  })
 
   return (
-    <Modal 
+    <Modal
       animationType="slide"
       transparent={true}
       visible={props.visible}
       onRequestClose={() => {
-        console.log('Modal has been closed.');
+        console.log('Modal has been closed.')
       }}
     >
       <View style={GlobalStyles.modalBackdrop}>
@@ -732,9 +735,7 @@ const FilterModal = (props) => {
           <View>
             <Text style={styles.modalTitle}>Select Filter Type:</Text>
           </View>
-          <View style={styles.btnsWrp}>
-            {filterBtns}
-          </View>
+          <View style={styles.btnsWrp}>{filterBtns}</View>
         </View>
       </View>
     </Modal>
@@ -743,7 +744,7 @@ const FilterModal = (props) => {
 
 const styles = StyleSheet.create({
   contentWrp: {
-    ...GlobalStyles.modalStyle
+    ...GlobalStyles.modalStyle,
   },
   modalTitle: {
     fontSize: GlobalStyles.fontSize,
@@ -753,56 +754,61 @@ const styles = StyleSheet.create({
   btnsWrp: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 10
+    marginTop: 10,
   },
   filterBtn: {
-    ...GlobalStyles.btn
+    ...GlobalStyles.btn,
   },
   filterBtnActive: {
-    ...GlobalStyles.btnActive
+    ...GlobalStyles.btnActive,
   },
   filterBtnTxt: {
-    ...GlobalStyles.btnText
+    ...GlobalStyles.btnText,
   },
   filterBtnActiveTxt: {
-    ...GlobalStyles.btnTextActive
-  }
-});
+    ...GlobalStyles.btnTextActive,
+  },
+})
 
 FilterModal.propTypes = {
   visible: PropTypes.bool.isRequired,
   selected: PropTypes.string.isRequired,
   selectFilter: PropTypes.func.isRequired,
-  filterTypes: PropTypes.arrayOf(PropTypes.string).isRequired
-};
+  filterTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
+}
 
-export default FilterModal;
+export default FilterModal
 ```
 
 After that, we will also add the `DeleteAllModal` component. This modal simply displays a warning message, making the user aware that, continuing would result in the deletion of all or some items (depending on the current filter type) in the list. Thus the modal contains two action buttons, one to '**continue**' with the intended action and another to '**cancel**'. The code in `DeleteAllModal.js` will look like this:
 
 ```jsx file=src/components/Modals/DeleteAllModal.js
-
-import React from 'react';
-import { View, Text, StyleSheet, Modal, TouchableHighlight } from 'react-native';
-import { styles as GlobalStyles } from '../../utils/styles';
-import PropTypes from 'prop-types';
+import React from 'react'
+import { View, Text, StyleSheet, Modal, TouchableHighlight } from 'react-native'
+import { styles as GlobalStyles } from '../../utils/styles'
+import PropTypes from 'prop-types'
 
 const DeleteAllModal = (props) => {
-  const filterType = props.currentFilter === 'all' ? props.currentFilter : `all ${props.currentFilter}`;
+  const filterType =
+    props.currentFilter === 'all'
+      ? props.currentFilter
+      : `all ${props.currentFilter}`
   return (
     <Modal
       animationType="slide"
       transparent={true}
       visible={props.visible}
       onRequestClose={() => {
-        console.log('Modal has been closed.');
+        console.log('Modal has been closed.')
       }}
     >
       <View style={GlobalStyles.modalBackdrop}>
         <View style={styles.container}>
           <View>
-            <Text style={styles.dialogTitle}>This action will delete { filterType } Todo(s). Do you want to continue?</Text>
+            <Text style={styles.dialogTitle}>
+              This action will delete {filterType} Todo(s). Do you want to
+              continue?
+            </Text>
           </View>
           <View style={styles.btnsWrp}>
             <TouchableHighlight
@@ -811,76 +817,71 @@ const DeleteAllModal = (props) => {
             >
               <Text style={styles.continueBtnTxt}>Continue</Text>
             </TouchableHighlight>
-            <TouchableHighlight
-              style={styles.cancelBtn}
-              onPress={props.cancel}
-            >
+            <TouchableHighlight style={styles.cancelBtn} onPress={props.cancel}>
               <Text style={styles.cancelBtnTxt}>Cancel</Text>
             </TouchableHighlight>
           </View>
         </View>
       </View>
     </Modal>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    ...GlobalStyles.modalStyle
+    ...GlobalStyles.modalStyle,
   },
   dialogTitle: {
     fontSize: GlobalStyles.fontSize,
-    color: '#333'
+    color: '#333',
   },
   btnsWrp: {
     marginTop: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   continueBtn: {
     ...GlobalStyles.btnActive,
   },
   continueBtnTxt: {
-    ...GlobalStyles.btnTextActive
+    ...GlobalStyles.btnTextActive,
   },
   cancelBtn: {
-    ...GlobalStyles.btn
+    ...GlobalStyles.btn,
   },
   cancelBtnTxt: {
-    ...GlobalStyles.btnText
-  }
-});
+    ...GlobalStyles.btnText,
+  },
+})
 
 DeleteAllModal.propTypes = {
   currentFilter: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
   continue: PropTypes.func.isRequired,
-  cancel: PropTypes.func.isRequired
+  cancel: PropTypes.func.isRequired,
 }
 
-export default DeleteAllModal;
+export default DeleteAllModal
 ```
-    
 
 I have also updated the `utils/styles.js` file, like so:
 
 ```jsx file=src/utils/styles.js
-
-export const fontSize = 16;
-export const iconSize = 22;
-export const btnTxtSize = 14;
+export const fontSize = 16
+export const iconSize = 22
+export const btnTxtSize = 14
 export const btnStyle = {
   padding: 5,
   borderRadius: 5,
   borderWidth: 1,
   borderColor: '#e2e6ea',
-  backgroundColor: '#dae0e5'
-};
+  backgroundColor: '#dae0e5',
+}
 export const btnTxtStyle = {
   fontSize: btnTxtSize,
-  color: '#212529'
-};
+  color: '#212529',
+}
 
 export const styles = {
   fontColor: '#ffffff',
@@ -888,29 +889,29 @@ export const styles = {
   iconSize: iconSize,
   appBackgroundColors: ['#4776E6', '#8E54E9'],
   btn: {
-    ...btnStyle
+    ...btnStyle,
   },
   btnText: {
-    ...btnTxtStyle
+    ...btnTxtStyle,
   },
   btnActive: {
     ...btnStyle,
     ...{
       borderColor: '#007bff',
-      backgroundColor: '#007bff'
-    }
+      backgroundColor: '#007bff',
+    },
   },
   btnTextActive: {
-    ...btnTxtStyle, 
+    ...btnTxtStyle,
     ...{
-      color: '#fff'
-    }
+      color: '#fff',
+    },
   },
-  modalBackdrop:{
+  modalBackdrop: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0.3)'
+    backgroundColor: 'rgba(0,0,0,0.3)',
   },
   modalStyle: {
     backgroundColor: '#fff',
@@ -922,10 +923,10 @@ export const styles = {
     shadowColor: '#000000',
     shadowOpacity: 0.6,
     width: '90%',
-    height: 'auto'
-  }
+    height: 'auto',
+  },
 }
-``` 
+```
 
 So that wraps up this tutorial. You can find the working app on [Expo.io](https://expo.io/@shalom.s/simple-todo-native) & the complete code on [GitHub](https://github.com/shalomsam/RN-Todo-App).
 

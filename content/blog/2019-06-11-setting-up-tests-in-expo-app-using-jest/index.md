@@ -1,6 +1,6 @@
 ---
 title: "Setting up Jest in an Expo app that's using Firebase 🔥"
-slug: "setting-up-tests-in-expo-app-using-jest"
+slug: 'setting-up-tests-in-expo-app-using-jest'
 date_published: 2019-06-11T19:22:06.000Z
 date_updated: 2019-06-11T19:51:19.000Z
 tags: Mobile Apps, Testing, Unit Testing, Jest, expo, expo-cli
@@ -60,12 +60,12 @@ The `"jest"` configuration can be used for React Native Apps as well.
 Now create a `tests` directory in the root of your project, and add a file that we will name `App.spec.js`. Let's add a simple [snapshot test](https://jestjs.io/docs/en/snapshot-testing) to check that our current setup works:
 
 ```jsx file=App.spec.js
-import "react-native"
-import React from "react"
-import renderer from "react-test-renderer"
-import App from "../App"
+import 'react-native'
+import React from 'react'
+import renderer from 'react-test-renderer'
+import App from '../App'
 
-it("App should render correctly", () => {
+it('App should render correctly', () => {
   const tree = renderer.create(<App />).toJSON()
   expect(tree).toMatchSnapshot()
 })
@@ -84,12 +84,12 @@ Now, these errors could be very misleading to what the real problem is. What you
 The main purpose of adding `[firebase-mock](https://github.com/soumak77/firebase-mock)` was to provide an easy way to mock the firebase SDK so that your tests don't actually hit the remote firebase database. Now, at the time of writing this article, I could not find proper documentation on how to actually use `firebase-mock`. The implementation suggested by the `firebase-mock` seemed rather incomplete. And thus began my nightmare of finding a firebase mock. I found a lot of snippets and gists out there, but most were incomplete or outdated & unmaintained. Which also made me realize that depending on a library that was meant for mocking made more sense from a maintainability stand point. But alas how do I use it. After a lot of searching around, I finally found how to use `firebase-mock`. To use this, first, we create a new `__mocks__` directory, that will contain all our mocks. _Ideally, I would have loved to have this directory under the directory that we created. But I couldn't find any good solution on how to achieve this at the moment in Jest_. Now we create a file with the filename matching that of the library we are trying to mock. In our case, the file name will be `firebase.js`, as we need to mock the firebase library. Open the newly created `firebase.js` and add the following code in it:
 
 ```jsx file=firebase.js
-import firebasemock from "firebase-mock"
+import firebasemock from 'firebase-mock'
 
 const mockdatabase = new firebasemock.MockFirebase()
 const mockauth = new firebasemock.MockFirebase()
 const mocksdk = new firebasemock.MockFirebaseSdk(
-  path => (path ? mockdatabase.child(path) : mockdatabase),
+  (path) => (path ? mockdatabase.child(path) : mockdatabase),
   () => mockauth
 )
 

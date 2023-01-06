@@ -1,6 +1,6 @@
 ---
-title: "Integrating Firebase to your React Native App"
-slug: "adding-navigation-to-your-react-native-app-using"
+title: 'Integrating Firebase to your React Native App'
+slug: 'adding-navigation-to-your-react-native-app-using'
 date_published: 2020-08-02T00:00:00.000Z
 date_updated: 2020-08-02T07:47:29.000Z
 draft: true
@@ -39,8 +39,8 @@ Once the installation is done, we need to add "inline-dotenv" to the babel confi
 module.exports = function (api) {
   api.cache(true)
   return {
-    presets: ["babel-preset-expo"],
-    plugins: ["inline-dotenv"],
+    presets: ['babel-preset-expo'],
+    plugins: ['inline-dotenv'],
   }
 }
 ```
@@ -73,13 +73,13 @@ FIREBASE_APP_ID="XXXXXXXXXXXXXXXXXXXXXX"
 Then we shall create some database files to handle the setting and retrieving of data from the database. These files will reside in a new directory `database` under the `src` directory. In the `src/database` directory let us add 3 new files, namely, `index.js`, `Database.js` and `Todos.js`. The `index.js` file will just export the contents of the `Todos.js` file:
 
 ```jsx file=src/database/index.js
-export * from "./Todos"
+export * from './Todos'
 ```
 
 The `Database.js` file will act as the base file for every collection. Currently our app has only one collection, i.e. `Todos` list. The `Database.js` will be imported and extend by the collection classes. Thus this is where we will initialize our firebase app:
 
 ```jsx file=src/database/Database.js
-import firebase from "firebase"
+import firebase from 'firebase'
 
 export default class Database {
   constructor() {
@@ -104,17 +104,17 @@ Notice that we are fetching our **firebase config** values from `process.env`, t
 Now we can add code for `src/database/Todos.js`. Here we will simply import the previously created `Database.js` file and extend the `Todos` class with our `Database` class. Then we'll add methods to set and retrieve our Todos:
 
 ```jsx file=src/database/Todos.js
-import Database from "./Database"
+import Database from './Database'
 
 class Todos extends Database {
-  refKey = "todos/"
+  refKey = 'todos/'
 
-  setTodos = todos => {
+  setTodos = (todos) => {
     this.database.ref(this.refKey).set(todos)
   }
 
   getTodos = async () => {
-    const snapshot = await this.database.ref(this.refKey).once("value")
+    const snapshot = await this.database.ref(this.refKey).once('value')
 
     if (snapshot.val() && snapshot.val().todos) {
       return snapshot.val().todos

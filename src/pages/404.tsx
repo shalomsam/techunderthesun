@@ -1,8 +1,8 @@
-import * as React from "react"
-import { graphql, PageProps } from "gatsby"
+import * as React from 'react'
+import { graphql, PageProps } from 'gatsby'
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Layout from '../components/layout'
+import Seo from '../components/seo'
 
 type DataProps = {
   site: {
@@ -13,7 +13,7 @@ type DataProps = {
 }
 
 const NotFoundPage: React.FC<PageProps<DataProps>> = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata?.title || "TechUnderTheSun"
+  const siteTitle = data.site.siteMetadata?.title || 'TechUnderTheSun'
 
   return (
     <Layout location={location} title={siteTitle}>

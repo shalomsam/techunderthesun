@@ -1,21 +1,21 @@
 // custom typefaces
-import "@fontsource/montserrat/variable.css"
-import "@fontsource/merriweather"
+import '@fontsource/montserrat/variable.css'
+import '@fontsource/merriweather'
 // normalize CSS across browsers
-import "./src/normalize.css"
+import './src/normalize.css'
 // custom CSS styles
-import "./src/style.css"
+import './src/style.css'
 
-import React from "react"
-import { MDXProvider } from "@mdx-js/react"
-import Highlight, { defaultProps } from "prism-react-renderer"
-import theme from "prism-react-renderer/themes/nightOwl"
+import React from 'react'
+import { MDXProvider } from '@mdx-js/react'
+import Highlight, { defaultProps } from 'prism-react-renderer'
+import theme from 'prism-react-renderer/themes/nightOwl'
 import { Snack } from 'mdx-embed'
 
-const Code: React.FC<any> = props => {
-  const className = props.children.props.className || ""
+const Code: React.FC<any> = (props) => {
+  const className = props.children.props.className || ''
   const code = props.children.props.children.trim()
-  const language = className.replace(/language-/, "")
+  const language = className.replace(/language-/, '')
   const file = props.children.props.file
 
   const highlights = (lineIx: number) => {
@@ -38,34 +38,34 @@ const Code: React.FC<any> = props => {
           style={{
             ...style,
             ...{
-              borderRadius: "8px",
-              padding: "0 15px 15px",
-              whiteSpace: "pre-wrap",
+              borderRadius: '8px',
+              padding: '0 15px 15px',
+              whiteSpace: 'pre-wrap',
             },
           }}
         >
           <div
             style={{
-              display: "flex",
-              flexDirection: "row",
-              marginBottom: "15px",
+              display: 'flex',
+              flexDirection: 'row',
+              marginBottom: '15px',
             }}
           >
             <div
               style={{
-                padding: "5px 10px 5px",
-                backgroundColor: "#C792EA",
-                color: "#fff",
-                borderRadius: "0 0 8px 8px",
-                marginRight: "10px",
+                padding: '5px 10px 5px',
+                backgroundColor: '#C792EA',
+                color: '#fff',
+                borderRadius: '0 0 8px 8px',
+                marginRight: '10px',
               }}
             >
               {language && language.toUpperCase()}
             </div>
             <div
               style={{
-                fontStyle: "italic",
-                padding: "5px",
+                fontStyle: 'italic',
+                padding: '5px',
               }}
             >
               {file && file}
@@ -75,8 +75,8 @@ const Code: React.FC<any> = props => {
             <div
               {...getLineProps({ line, key: i })}
               style={{
-                background: highlights(i) ? "#00f5c426" : "transparent",
-                display: "block",
+                background: highlights(i) ? '#00f5c426' : 'transparent',
+                display: 'block',
               }}
             >
               {line.map((token, key) => (
@@ -91,9 +91,9 @@ const Code: React.FC<any> = props => {
 }
 
 const components = {
-  pre: props => <Code {...props} />,
+  pre: (props) => <Code {...props} />,
   wrapper: ({ children }) => <>{children}</>,
-  Snack: props => <Snack {...props} />
+  Snack: (props) => <Snack {...props} />,
 }
 
 export const wrapRootElement = ({ element }) => {

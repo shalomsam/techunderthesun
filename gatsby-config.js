@@ -89,15 +89,15 @@ const config = {
         feeds: [
           {
             serialize: ({ query: { site, allMdx } }) => {
-              return allMdx.nodes.map(node => {
+              return allMdx.nodes.map((node) => {
                 return Object.assign({}, node.frontmatter, {
                   description: node.excerpt,
                   date: node.frontmatter.date,
                   url: `${site.siteMetadata.siteUrl}/${node.frontmatter.slug}`,
                   guid: Buffer.from(
                     `${site.siteMetadata.siteUrl}/${node.frontmatter.slug}`
-                  ).toString("base64"),
-                  custom_elements: [{ "content:encoded": node.html }],
+                  ).toString('base64'),
+                  custom_elements: [{ 'content:encoded': node.html }],
                 })
               })
             },
@@ -112,8 +112,8 @@ const config = {
                 }
               }
             }`,
-            output: "/rss.xml",
-            title: "Gatsby Starter Blog RSS Feed",
+            output: '/rss.xml',
+            title: 'Gatsby Starter Blog RSS Feed',
           },
         ],
       },

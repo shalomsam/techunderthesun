@@ -1,6 +1,6 @@
 ---
-title: "Security patches now a breeze on your Ubuntu Server/Machine! 💻"
-slug: "tired-of-constant-security-updates-to-your-ubuntu"
+title: 'Security patches now a breeze on your Ubuntu Server/Machine! 💻'
+slug: 'tired-of-constant-security-updates-to-your-ubuntu'
 date_published: 2019-06-12T12:44:40.000Z
 date_updated: 2019-06-14T14:05:06.000Z
 tags: Ubuntu, Server, Hosting, VPS, Kernel

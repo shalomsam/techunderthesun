@@ -1,6 +1,6 @@
 ---
-title: "Optimizing a monolithic React App - II"
-slug: "optimizing-your-react-app-ii"
+title: 'Optimizing a monolithic React App - II'
+slug: 'optimizing-your-react-app-ii'
 date_published: 2020-08-20T00:00:00.000Z
 date_updated: 2020-08-20T17:41:56.000Z
 draft: true

@@ -1,5 +1,5 @@
-import * as React from "react"
-import { Link } from "gatsby"
+import * as React from 'react'
+import { Link } from 'gatsby'
 
 declare const __PATH_PREFIX__: string
 
@@ -40,7 +40,7 @@ const Layout: React.FunctionComponent<LayoutProps> = ({
       <header className="global-header">{header}</header>
       <main>{children}</main>
       <footer className="footer">
-        <span style={{ verticalAlign: "text-top" }}>&copy;</span>{" "}
+        <span style={{ verticalAlign: 'text-top' }}>&copy;</span>{' '}
         {new Date().getFullYear()} {siteTitle}
       </footer>
     </div>

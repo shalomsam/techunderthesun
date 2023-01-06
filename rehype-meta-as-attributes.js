@@ -2,8 +2,8 @@ const visit = require(`unist-util-visit`)
 const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
 
 function rehypeMetaAsAttributes() {
-  return tree => {
-    visit(tree, `element`, node => {
+  return (tree) => {
+    visit(tree, `element`, (node) => {
       let match
 
       if (node.tagName === `code` && node.data && node.data.meta) {
