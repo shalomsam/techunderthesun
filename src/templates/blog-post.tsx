@@ -18,6 +18,7 @@ type DataProps = {
     frontmatter: {
       title: string
       date_published: string
+      date_updated: string
       description: string
       slug: string
     }
@@ -66,7 +67,10 @@ const BlogPostTemplate: React.FC<PageProps<DataProps>> = ({
       >
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
-          <p>{post.frontmatter.date_published}</p>
+          <p>
+            {post.frontmatter.date_published}
+            {post.frontmatter?.date_updated && (<small style={{ fontStyle: 'italic', paddingLeft: '15px' }}>(last updated: {post.frontmatter?.date_updated})</small>)}
+          </p>
         </header>
         <section itemProp="articleBody">{children}</section>
         <hr />
@@ -134,6 +138,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date_published(formatString: "MMMM DD, YYYY")
+        date_updated(formatString: "MMMM DD, YYYY")
         slug
       }
     }
