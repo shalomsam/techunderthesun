@@ -21,6 +21,7 @@ type DataProps = {
       date_updated: string
       description: string
       slug: string
+      tags: string
     }
   }
   prev: {
@@ -115,6 +116,7 @@ export const Head: React.FC<PageProps<DataProps>> = ({
     <Seo
       title={post.frontmatter.title}
       description={post.frontmatter.description || post.excerpt}
+      tags={post.frontmatter?.tags}
     />
   )
 }
@@ -140,6 +142,7 @@ export const pageQuery = graphql`
         date_published(formatString: "MMMM DD, YYYY")
         date_updated(formatString: "MMMM DD, YYYY")
         slug
+        tags
       }
     }
     prev: mdx(id: { eq: $previousPostId }) {

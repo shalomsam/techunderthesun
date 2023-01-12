@@ -4,10 +4,11 @@ import { useStaticQuery, graphql } from 'gatsby'
 type SeoProps = {
   description?: string
   title?: string
+  tags?: string
   children?: JSX.Element
 }
 
-const Seo: React.FC<SeoProps> = ({ description, title, children }) => {
+const Seo: React.FC<SeoProps> = ({ description, title, tags, children }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -33,6 +34,7 @@ const Seo: React.FC<SeoProps> = ({ description, title, children }) => {
     <>
       <title>{defaultTitle ? `${title} | ${defaultTitle}` : title}</title>
       <meta name="description" content={metaDescription} />
+      {tags && <meta name="keywords" content={tags} />}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={metaDescription} />
       <meta property="og:type" content="website" />

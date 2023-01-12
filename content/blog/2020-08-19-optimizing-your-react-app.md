@@ -3,7 +3,7 @@ title: 'Optimizing a monolithic React App - I'
 slug: 'optimizing-your-react-app'
 date_published: 2020-08-20T05:57:51.000Z
 date_updated: 2020-08-20T16:55:57.000Z
-tags: React, Performance, enhancements, Reactjs, Apps
+tags: React, Performance, enhancements, Reactjs, Apps, Typescript
 ---
 
 At a large retail company in BC, Canada, we were faced with a monolithic problem of an underperforming and over-bloated Storefront web app, built using React. Thus to address this growing concern over performance, scalability and security a team was built. Performance as a subject is an ocean, and to be tasked with solving for it is like searching for the needle in the ocean.
