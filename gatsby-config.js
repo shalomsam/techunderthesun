@@ -15,7 +15,7 @@ const config = {
       summary: `, a Software Engineer at heart and working as a Technology Manager based in Vancouver, building and learning new tech everyday.`,
     },
     description: `A personal blog to ink out my thoughts and observations of the tech space. Also a place to document tutorials as I play with new technology tools, frameworks, etc. from time to time.`,
-    siteUrl: `https://techunderthesun.gatsbyjs.io/`,
+    siteUrl: `https://techunderthesun.in/`,
     social: {
       twitter: ``,
       github: `shalomsam`,
@@ -24,6 +24,9 @@ const config = {
   },
   plugins: [
     `gatsby-plugin-image`,
+    `gatsby-plugin-sitemap`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -45,7 +48,6 @@ const config = {
         path: `${__dirname}/content/pages`,
       },
     },
-    // `gatsby-plugin-mdx-embed`,
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
@@ -69,8 +71,6 @@ const config = {
         },
       },
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-feed`,
       options: {
