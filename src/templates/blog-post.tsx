@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Link, graphql, PageProps } from 'gatsby'
+import { Disqus } from 'gatsby-plugin-disqus'
 
 import Bio from '../components/bio'
 import Layout from '../components/layout'
@@ -9,6 +10,7 @@ type DataProps = {
   site: {
     siteMetadata: {
       title: string
+      siteUrl: string
     }
   }
   mdx: {
@@ -105,6 +107,11 @@ const BlogPostTemplate: React.FC<PageProps<DataProps>> = ({
           </li>
         </ul>
       </nav>
+      <Disqus config={{
+        url: site.siteMetadata.siteUrl + post.frontmatter.slug,
+        identifier: post.frontmatter.slug,
+        title: post.frontmatter.title
+      }} />
     </Layout>
   )
 }
@@ -132,6 +139,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        siteUrl
       }
     }
     mdx(id: { eq: $id }) {
