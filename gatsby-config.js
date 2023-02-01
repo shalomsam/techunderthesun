@@ -138,6 +138,12 @@ const config = {
           shortname: `techunderthesun-in`
       }
     },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: ['G-8C58XHPTLZ']
+      }
+    }
   ],
 }
 

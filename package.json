@@ -2,7 +2,7 @@
   "name": "gatsby-starter-blog",
   "private": true,
   "description": "A starter for a blog powered by Gatsby and Markdown",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "Shalom Sam <shalom.k.sam@gmail.com>",
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
@@ -14,6 +14,7 @@
     "gatsby": "^5.3.3",
     "gatsby-plugin-disqus": "^1.2.4",
     "gatsby-plugin-feed": "^5.3.1",
+    "gatsby-plugin-google-gtag": "^5.5.0",
     "gatsby-plugin-image": "^3.3.2",
     "gatsby-plugin-manifest": "^5.3.1",
     "gatsby-plugin-mdx": "^5.3.1",
