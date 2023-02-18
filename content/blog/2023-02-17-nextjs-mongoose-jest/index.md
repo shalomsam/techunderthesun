@@ -405,7 +405,7 @@ describe("Organization Test", () => {
 ```
 
 Now when we open a terminal and navigate to the project's root folder and run `npx jest` you should be greeted with successful tests like below - 
-![Passing Jest Tests]('passing-jest-tests.png')
+![Passing Jest Tests](./passing-jest-tests.png)
 
 
 ### Final words
