@@ -409,4 +409,4 @@ Now when we open a terminal and navigate to the project's root folder and run `n
 
 
 ### Final words
-I hope this tutorial helped some of you, who might find yourself in a similar situation trying to find a working solution. If you did enjoy or find this useful please drop in a word and/or like this article.
+I hope this tutorial helped some of you, who might find yourself in a similar situation trying to find a working solution. If you did enjoy or find this useful please drop in a word and/or like this article. You can find the complete code for this minimal working solution on [Github](https://github.com/shalomsam/techunderthesun/tree/master/examples/nextjs-mongoose-jest-test).
